@@ -19,7 +19,7 @@ $users = $userRepository->fetchAll();
 <body>
 
 <div class="container">
-    <h3><?php echo 'Hello world from Docker! php' . PHP_VERSION; ?></h3>
+    <h3><?php echo 'Docker! php' . PHP_VERSION; ?></h3>
 
     <table class="table table-bordered table-hover table-striped">
         <thead style="font-weight: bold">
