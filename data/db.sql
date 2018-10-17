@@ -17,3 +17,20 @@ CREATE TABLE "Game" (
    id_winner integer REFERENCES User(id),
    po integer NOT NULL
 );
+
+Create table category (
+	id serial primary key,
+	attack integer,
+	defence integer,
+	type varchar,
+	cost integer,
+	chance float
+);
+Create table Unit(
+	name varchar,
+	id_cat integer references category(id),
+	AtckBonus integer,
+	DefBonus integer,
+	chanceBonus float,
+	description varchar
+);
