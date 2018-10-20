@@ -1,0 +1,55 @@
+<div id="app">
+  <div id="game">
+  <div id="plateau">
+    <div class="chateau" id="chateau_adversaire">
+      <img src="http://simpleicon.com/wp-content/uploads/castle.png" />
+    </div>
+    <div id="placed_cards">
+      <div class="unit" v-for="placed in selected">
+        {{placed.name}}
+      </div>
+    </div>
+    <div class="chateau" id="chateau_joueur">
+      <img src="http://simpleicon.com/wp-content/uploads/castle.png" />
+    </div>
+    <div id="start">
+      <button v-on:click="send">
+       Prêt
+     </button>
+      <div id="coins">
+        {{coins}}
+      </div>
+    </div>
+    <div id="hand">
+      <div class="card" v-on:click="selectCard(cat)" v-for="cat in categories">
+        <div class="top">
+          <div class="attack">
+            {{cat.attack}}
+          </div>
+          <div class="defence">
+            {{cat.defence}}
+          </div>
+        </div>
+        <div class="middle">
+          {{cat.type}}
+        </div>
+
+        <div class="bottom">
+          <div class="chance">
+            {{cat.chance}}
+          </div>
+          <div class="cost">
+            {{cat.cost}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="log">
+    <p v-html="log">
+
+    </p>
+  </div>
+  </div>
+</div>

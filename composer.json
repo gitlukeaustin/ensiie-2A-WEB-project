@@ -5,8 +5,10 @@
     "autoload": {
         "psr-4": {
             "User\\": "src/User/",
-            "Unit\\": "src/Unit"
-        }
+            "Unit\\": "src/Unit",
+            "Category\\": "src/Category/"
+        },
+        "files": ["public/FrontController.php"]
     },
     "autoload-dev": {
         "psr-4": {

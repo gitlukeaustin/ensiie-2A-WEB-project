@@ -26,6 +26,7 @@ Create table Category (
 	cost integer NOT NULL,
 	chance float NOT NULL
 );
+
 Create table Unit(
 	id integer primary key,
 	name varchar NOT NULL,
@@ -35,3 +36,11 @@ Create table Unit(
 	chanceBonus float default 0,
 	description varchar NOT NULL
 );
+
+INSERT INTO Category(id,attack,defence,type,cost,chance) VALUES (1,0,8,'Mur',8,0.9);
+INSERT INTO Category(id,attack,defence,type,cost,chance) VALUES (2,5,2,'Soldat',6,0.85);
+
+INSERT INTO Unit(id,name,id_cat,description) VALUES(1,'Mur A',1,'Mur Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(2,'Mur B',1,'Mur Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(3,'Soldat A',2,'Soldat Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(4,'Soldat B',2,'Soldat Description');

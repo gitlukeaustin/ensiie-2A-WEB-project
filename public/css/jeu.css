@@ -1,0 +1,129 @@
+body {
+  background: #20262E;
+  padding: 20px;
+  font-family: Helvetica;
+}
+
+#app {
+  background: #fff;
+  padding: 10px;
+  transition: all 0.2s;
+  display: flex;
+  width:600px; 
+}
+
+#game {
+  display:flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  width:100%;
+}
+
+#plateau {
+  background: lightgreen;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+  
+}
+
+#log {
+  background: #000;
+  padding: 3px;
+  flex-grow: 1;
+  color: #fff;
+}
+
+#placed_cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  min-height: 90px;
+  justify-content: space-evenly;
+  align-items: first baseline;
+}
+
+.card {
+  background: white;
+  border: solid;
+  border-width: 2px;
+  border-radius: 3px;
+  width: 44px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self:center;
+  -webkit-transition: transform 0.5s; /* Safari */
+  transition: transform 0.25s;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
+}
+
+.card:hover {
+   transform: translate(0,-3px);
+    -webkit-transform: translate(0,-3px); /** Chrome & Safari **/
+}
+
+.card .top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card .middle {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card .bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chateau {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 89;
+}
+
+.attack {
+  color: red;
+}
+
+.defence {
+  color: green;
+}
+
+.cost {
+  color: orange;
+}
+
+.chance {
+  color: blue;
+}
+
+.chateau img {
+  max-height: 50px;
+}
+
+#start {
+  padding: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#hand {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 1px;
+  margin: 2px;
+  border-style: solid;
+  border-color: blue;
+  border-width: 3px;
+  border-radius: 3px;
+  min-height: 5px;
+  max-width: 350px;
+  overflow-x: auto;
+  height:95px;
+}
