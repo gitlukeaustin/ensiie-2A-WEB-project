@@ -21,7 +21,7 @@ var app =new Vue({
   },
   mounted: function(){
     axios
-    .get('http://localhost:8080/index.php?action=fetch_categories')
+    .get('http://localhost:8080/jeu.php?action=fetch_categories')
     .then(response => {
       // JSON responses are automatically parsed.
       this.categories = response.data;
@@ -29,7 +29,7 @@ var app =new Vue({
     })
     .catch(error => console.log(error));
     axios
-    .get('http://localhost:8080/index.php?action=fetch_units')
+    .get('http://localhost:8080/jeu.php?action=fetch_units')
     .then(response => {
       // JSON responses are automatically parsed.
       this.units = response.data;
@@ -50,7 +50,7 @@ var app =new Vue({
    
         formData.append('data', JSON.stringify(this.selected));
         axios
-        .post('http://localhost:8080/index.php?action=send_selection',formData)
+        .post('http://localhost:8080/jeu.php?action=send_selection',formData)
         .then(response => {
           // JSON responses are automatically parsed.
           console.log(response.data);
