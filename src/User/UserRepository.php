@@ -65,6 +65,20 @@ class UserRepository
         return $user;
     }
 
+    public function findOneById($id){
+        $user = null;
+        $statement = $this->connection->prepare('SELECT * FROM "User" WHERE id = :id');
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+
+        $allUsers = $statement->fetchAll();
+        foreach ($allUsers as $userData){
+            $newUser = new \User\User();
+            $user = $this->hydrator->hydrate($userData, clone $newUser);
+        }
+        return $user;
+    }
+
     /**
      * @param \User\User $user
      */

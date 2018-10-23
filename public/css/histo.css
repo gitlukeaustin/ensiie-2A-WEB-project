@@ -1,0 +1,26 @@
+.histoGame {
+	height: 8em;
+	width: 60%;
+	margin: auto;
+	border: 1px solid gray;
+	margin-top: 1px;
+}
+
+.win{
+	background-color: rgba(32,148,74,0.5);
+}
+
+.loose{
+	background-color: rgba(239,10,0,0.5);
+}
+
+.players {
+	margin-top:20px;
+	text-align: center;
+	vertical-align: center;
+}
+
+.date {
+	margin: 0px;
+	padding: 0px;
+}
