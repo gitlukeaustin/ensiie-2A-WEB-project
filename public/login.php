@@ -49,11 +49,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         } else{
         /* Validation dynamique en JS, ce cas ne devrait pas arriver */
             $view['errors']['not_set'] = 'Veuillez remplir tous les champs.';
-    }
+         }
 
         if(count($view['errors']) === 0){
             header('Location: http://localhost:8080/jeu.php');
         }
+
+        print_r($view['errors']);
     }
 
 ?>

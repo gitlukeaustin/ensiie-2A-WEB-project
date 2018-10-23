@@ -65,6 +65,7 @@ class UserRepository
         return $user;
     }
 
+    
     public function findOneById($id){
         $user = null;
         $statement = $this->connection->prepare('SELECT * FROM "User" WHERE id = :id');
@@ -91,6 +92,19 @@ class UserRepository
         $statement->bindParam(':isadmin',$userArray['isadmin']);
         $statement->bindParam(':ects',$userArray['ects']);
         $statement->execute();
+    }
+
+
+    /**
+     * @param $id
+     */
+    public function deleteUserById($id){
+
+        $statement = $this->connection->prepare('DELETE FROM "User" WHERE id = :id;');
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+    
+        /* return some status */
     }
 
 
