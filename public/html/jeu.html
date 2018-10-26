@@ -1,15 +1,20 @@
 <div id="app">
   <div id="game">
   <div id="plateau">
-    <div class="chateau" id="chateau_adversaire">
-      <img src="http://simpleicon.com/wp-content/uploads/castle.png" />
+    <div class="chateau icon" id="chateau_adversaire">
+      <img :src="img.castle" />
+    </div>
+    <div id="adv_cards">
+      <div class="unit" v-for="placed in adv">
+        <img :src="'image/'+placed.type +'.png' | lowercase" :alt="placed.type"/>
+      </div>
     </div>
     <div id="placed_cards">
       <div class="unit" v-for="placed in selected">
-        {{placed.name}}
+        <img :src="'image/'+placed.type +'.png' | lowercase" :alt="placed.type"/>
       </div>
     </div>
-    <div class="chateau" id="chateau_joueur">
+    <div class="chateau icon" id="chateau_joueur">
       <img src="http://simpleicon.com/wp-content/uploads/castle.png" />
     </div>
     <div id="start">
@@ -23,23 +28,23 @@
     <div id="hand">
       <div class="card" v-on:click="selectCard(cat)" v-for="cat in categories">
         <div class="top">
-          <div class="attack">
-            {{cat.attack}}
+          <div class="cost">
+            {{cat.cost}}
           </div>
           <div class="defence">
             {{cat.defence}}
           </div>
         </div>
-        <div class="middle">
-          {{cat.type}}
+        <div class="middle icon">
+          <img :src="'image/'+cat.type +'.png' | lowercase" :alt="cat.type"/>
         </div>
 
         <div class="bottom">
           <div class="chance">
-            {{cat.chance}}
+            {{cat.chance | trim}}
           </div>
-          <div class="cost">
-            {{cat.cost}}
+          <div class="attack">
+            {{cat.attack}}
           </div>
         </div>
 

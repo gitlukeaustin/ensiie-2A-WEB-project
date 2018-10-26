@@ -60,9 +60,34 @@ class FrontController
                     echo json_encode($catArray);
                     return true;
                 } else if ($this->params['get']['action'] == 'send_selection') {
-                    $selected = json_decode($this->params['post']['data']);
-
-                    echo json_encode(['data' => $selected, 'log' => 'Séléction envoyé.']);
+                    $selected = json_decode($this->params['post']['data'],true); // decode as array
+                    $j1 = $_SESSION['user']; // $j1 = userHydro->hydrate($_SESSION['user'])
+                    $no_p2 = true;
+                    if($no_p2){
+                        
+                        $log = ['Aucun adversaire présent - lancement d\'un match simulé.'];
+                        
+                        $robot = ['login'=> 'robot'];
+                        $cartesRobot = [['type'=>'Soldat','name'=>'Soldat','attack'=>2,'defence'=>2,'chance'=>0.9],
+                            ['type'=>'Mur','name'=>'Mur','attack'=>0,'defence'=>2,'chance'=>0.9],
+                            ['type'=>'Soldat','name'=>'Soldat','attack'=>2,'defence'=>2,'chance'=>0.9]];
+                        
+                        $sim = new Simulator();
+                        $winner = $sim->simulate($selected,$cartesRobot,$j1,$robot);
+                        //array_push($log,$sim->getLog()??['']);
+                        foreach($sim->getLog()??[''] as $l){
+                            $log[] = $l;
+                        }
+                        
+                        if($winner == NULL){
+                            $log[] = "Exéco.";
+                        }
+                        else{
+                            $log[] = "Le joueur ".$winner['login']." a gagné!";
+                        }
+                        // mis a jour de la base du vainqueur
+                    }
+                    echo json_encode(['data' => $selected, 'log' => $log, 'adv' => $cartesRobot]);
                     return true;
                 }
                 return false;

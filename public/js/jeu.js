@@ -3,6 +3,9 @@ var app =new Vue({
   el: "#app",
   data: {
     info : 0,
+    img: {
+      castle:"http://simpleicon.com/wp-content/uploads/castle.png"
+   },
   	categories: [
     	//{ id:1, type: "Mur", attack:0, defence:8, cost:8, chance:0.1},
       //{ id:2, type: "Soldat", attack:5, defence:1, cost:4, chance:0.15}
@@ -17,6 +20,7 @@ var app =new Vue({
     log: "en attente de joueurs...</br>",
     coins:50,
     selected: [],
+    adv: [],
     locked:false
   },
   mounted: function(){
@@ -38,6 +42,15 @@ var app =new Vue({
     })
     .catch(error => console.log(error));
    },
+   filters: {
+    // Filter definitions
+     lowercase(value) {
+         return value.toLowerCase();
+     },
+     trim(value) {
+       return value.toString().substring(1);
+     }
+  },
   methods: {
   	send: function() {
       if(this.locked){
@@ -54,7 +67,11 @@ var app =new Vue({
         .then(response => {
           // JSON responses are automatically parsed.
           console.log(response.data);
-          this.log += response.data.log + "</br>";
+          this.adv = response.data.adv;
+
+          for(i = 0; i < response.data.log.length;i++){
+             this.log += response.data.log[i] + "</br>";
+          }
         })
         .catch(error => console.log(error));
       }

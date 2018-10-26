@@ -9,7 +9,8 @@ body {
   padding: 10px;
   transition: all 0.2s;
   display: flex;
-  width:600px; 
+  max-width:1000px;
+  height:443px; 
 }
 
 #game {
@@ -24,7 +25,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-grow: 2;
-  
+  min-width: 347px;
 }
 
 #log {
@@ -32,6 +33,9 @@ body {
   padding: 3px;
   flex-grow: 1;
   color: #fff;
+  overflow-x: auto;
+  width:290px;
+  font-family: 'VT323', monospace;
 }
 
 #placed_cards {
@@ -39,6 +43,17 @@ body {
   flex-direction: row;
   flex-wrap: wrap-reverse;
   min-height: 90px;
+  flex-grow:5;
+  justify-content: space-evenly;
+  align-items: first baseline;
+}
+
+#adv_cards{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  min-height: 90px;
+  flex-grow:5;
   justify-content: space-evenly;
   align-items: first baseline;
 }
@@ -64,18 +79,23 @@ body {
     -webkit-transform: translate(0,-3px); /** Chrome & Safari **/
 }
 
+.card div{
+  display:flex;
+}
+
+.card div div{
+  font-family: font-family: 'Eater', cursive;
+}
+
 .card .top {
-  display: flex;
   justify-content: space-between;
 }
 
 .card .middle {
-  display: flex;
   justify-content: space-around;
 }
 
 .card .bottom {
-  display: flex;
   justify-content: space-between;
 }
 
@@ -87,7 +107,7 @@ body {
 
 .attack {
   color: red;
-}
+}!
 
 .defence {
   color: green;
@@ -104,6 +124,11 @@ body {
 .chateau img {
   max-height: 50px;
 }
+
+.unit img {
+  max-height: 30px;
+}
+
 
 #start {
   padding: 2px;
@@ -122,8 +147,6 @@ body {
   border-color: blue;
   border-width: 3px;
   border-radius: 3px;
-  min-height: 5px;
-  max-width: 350px;
   overflow-x: auto;
   height:95px;
 }

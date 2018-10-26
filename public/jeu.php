@@ -1,6 +1,8 @@
 <?php
 require '../vendor/autoload.php';
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 //postgres
 $dbName = getenv('DB_NAME');
 $dbUser = getenv('DB_USER');
@@ -34,7 +36,7 @@ $dispatched = $front->dispatch();
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <!-- production version, optimized for size and speed
         <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-        <script type="text/javascript" src="js/jeu.js?ver=1" ></script>
+        <script type="text/javascript" src="js/jeu.js?ver=2" ></script>
     </head>
     <body>
         <?php readfile("html/navBar.html"); ?>

@@ -9,7 +9,9 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 $userRepository = new \User\UserRepository($connection);
 $userHydrator = new \User\UserHydrator();
 @ob_start();
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -42,6 +44,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if ($password === $user->getPassword()) {
                 $_SESSION['uniqid'] = uniqid();
                 $_SESSION['login'] = $login;
+                $_SESSION['user'] = $userHydrator->extract($user);
             } else {
                 $view['errors']['wrong_password'] = 'Le mot de passe entré n\'est pas le bon.';
             }
