@@ -16,7 +16,7 @@ session_start();
 
 <html>
 	<head>
-	<link rel="stylesheet" href="css/navBar.css"/>
+	<link rel="stylesheet" href="css/default.css"/>
 	<link rel="stylesheet" href="css/histo.css"/>
 	</head>
 	<body>
