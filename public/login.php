@@ -1,4 +1,7 @@
 <?php
+
+use User\UserHydrator;
+
 require '../vendor/autoload.php';
 
 //postgres
@@ -7,14 +10,14 @@ $dbUser = getenv('DB_USER');
 $dbPassword = getenv('DB_PASSWORD');
 $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=$dbPassword");
 $userRepository = new \User\UserRepository($connection);
-$userHydrator = new \User\UserHydrator();
+$userHydrator = new UserHydrator();
 @ob_start();
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
 
     if(isset($_POST['disconnect'])){
         session_destroy();
@@ -23,42 +26,83 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit();
     }
 
-    $login = $_POST['login'];
-    $password = $_POST['password'];
 
-    $view = [
+    /* Login */
+    if(!isset($_POST['registerUsername'])) {
+        $login = $_POST['loginUsername'];
+        $password = $_POST['loginPassword'];
+
+        $view = [
             'user' => [
-                    'login' => $login ?? null,
-                    'password' => $password ?? null,
+                'login' => $login ?? null,
+                'password' => $password ?? null,
             ],
-        'errors' => [],
-    ];
+            'errors' => [],
+        ];
 
-    if($login && $password){
-        $user = $userRepository->findOneByLogin($login);
-        if(!$user){
-            $view['errors']['not_exists'] = 'Utilisateur inexistant.';
-        }
-        else {
-
-            if ($password === $user->getPassword()) {
-                $_SESSION['uniqid'] = uniqid();
-                $_SESSION['login'] = $login;
-                $_SESSION['user'] = $userHydrator->extract($user);
+        if ($login && $password) {
+            $user = $userRepository->findOneByLogin($login);
+            if (!$user) {
+                $view['errors']['not_exists'] = 'Utilisateur inexistant.';
             } else {
-                $view['errors']['wrong_password'] = 'Le mot de passe entré n\'est pas le bon.';
+
+                if ($password === $user->getPassword()) {
+                    $_SESSION['uniqid'] = uniqid();
+                    $_SESSION['login'] = $login;
+                    $_SESSION['user'] = $userHydrator->extract($user);
+                } else {
+                    $view['errors']['wrong_password'] = 'Le mot de passe entré n\'est pas le bon.';
+                }
             }
-        }
-        } else{
-        /* Validation dynamique en JS, ce cas ne devrait pas arriver */
+        } else {
+            /* Validation dynamique en JS, ce cas ne devrait pas arriver */
             $view['errors']['not_set'] = 'Veuillez remplir tous les champs.';
-         }
+        }
+    }
+    else{
+        /* Register */
+        $login = $_POST['registerUsername'];
+        $password = $_POST['registerPassword'];
+        $email = $_POST['registerEmail'];
+        $confirmPassword = $_POST['registerConfirmPassword'];
 
-        if(count($view['errors']) === 0){
-            header('Location: http://localhost:8080/jeu.php');
+        $view = [
+            'user' => [
+                'login' => $login ?? null,
+                'password' => $password ?? null,
+                'email' => $email ?? null,
+                'isAdmin' => 0,
+                'ects' => 0,
+            ],
+            'errors' => [],
+        ];
+
+            $user = $userRepository->findOneByLogin($login);
+            if ($user) {
+                $view['errors']['not_exists'] = 'Utilisateur déjà présent.';
+            } else {
+                if ($password === $confirmPassword) {
+                    $newUser = new \User\User();
+                    $userHydrator->hydrate($view['user'], $newUser);
+                    $userRepository->create($newUser);
+                    $_SESSION['uniqid'] = uniqid();
+                    $_SESSION['login'] = $login;
+                    $_SESSION['user'] = $userHydrator->extract($newUser);
+                } else {
+                    $view['errors']['wrong_password'] = 'Le mot de passe entré n\'est pas le bon.';
+                }
+            }
+    }
+    } else {
+            /* Validation dynamique en JS, ce cas ne devrait pas arriver */
+            $view['errors']['not_set'] = 'Veuillez remplir tous les champs.';
         }
 
-        print_r($view['errors']);
-    }
+            if(count($view['errors']) === 0){
+                header('Location: http://localhost:8080/jeu.php');
+            }
+
+            print_r($view['errors']);
+
 
 ?>

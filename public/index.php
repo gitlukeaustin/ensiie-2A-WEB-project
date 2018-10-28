@@ -11,7 +11,8 @@ $userRepository = new UserRepository($connection);
 $userHydrator = new \User\UserHydrator();
 @ob_start();
 session_start();
-readfile("html/navBar.html");
+require 'navBar.php';
+
 if(isset($_SESSION['uniqid']) && isset($_SESSION['login'])){
     header('Location: http://localhost:8080/jeu.php');
     exit();

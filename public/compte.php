@@ -10,37 +10,34 @@ $userRepository = new UserRepository($connection);
 $userHydrator = new \User\UserHydrator();
 @ob_start();
 session_start();
-readfile("html/navBar.html");
-
+require "navBar.php";
 
 if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['uniqid']) && $_SESSION['uniqid'] != null){
 	$user = $userRepository->findOneByLogin($_SESSION['login']);
 }
 
-
-
-
+function modify(){
+	echo $_POST['login'];
+}
 ?>
+
 <script type="text/javascript">
-	var columns = ["login", "email", "ects"];
+	var columns =['login', 'email', 'ects'];
 
-	window.onload = function () {
-		for(index in columns)
-			document.getElementById(columns[index]).disabled = false;
-	};
+	function enableInputs(){
+		alert("aaaaaaaa");
 
-	function enableInputs(login, email, ects){
-		login.disabled = true;
-		email.disabled = false;
-		ects.disabled = false;
+		for (var i = columns.length - 1; i >= 0; i--) {
+			if(typeof columns[i] !== 'undefined' && columns[i] !== null) {
+				document.getElementById(columns[i]).disabled = false;
+				//alert('test' + columns[i]);
+			}
+		}
+		alert("dd ");
 	}
 </script>
-
-
-
 <html>
 <link href="../css/compte.css" rel="stylesheet"></link>
-
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
@@ -61,19 +58,19 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 	            <br />
 	            Ects : &nbsp; <input type="text" id="ects" class="fadeIn third" style="width: 200px;" name="ects"  value="<? echo $user->getEcts() ?>" placeholder="ects" disabled />
 	        	</b>
-	        	<br /><br /><br />
+	        	<br /><br />
 	        	<table>
 	        		<tr>
 	        			<td>
 	        				<form method="POST" action="delete.php">  
 				        		<input type="hidden" name='user_id' value='<? echo $user->getId() ?>' >
-				        		<input type="submit" class="fadeIn fourth" value="delete" style="width: 100px;text-align: center" >
+				        		<input type="submit" class="fadeIn fourth" value="delete" style="width: 100px" >
 				        	</form>
 	        			</td>
 	        			<td>
 	        				<form method="POST" action="compte.php">
 				        		<input type="hidden" name='_user_id' value='<? echo $user->getId() ?>' >
-					        	<input type="submit" class="fadeIn fourth" value="modify" style="width: 100px;text-align: center" >
+					        	<input type="button" onclick="enableInputs()" class="fadeIn fourth" value="modify" style="width: 100px" >
 				        	</form>
 	        			</td>
 	        		</tr>
@@ -89,16 +86,3 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
     </div>
 </div>
 </html>
-
-<?php
-
-if(isset($_POST['_user_id']))
-{
-   modify();
-} 
-
-function modify(){
-    echo "modify " . $_POST["_user_id"]. '<script type="text/javascript"> enableInputs(document.getElementById("login"), document.getElementById("email"), document.getElementById("ects")); </script>';
-}
-
-?>

@@ -16,14 +16,13 @@ session_start();
 
 <html>
 	<head>
-	<link rel="stylesheet" href="css/default.css"/>
 	<link rel="stylesheet" href="css/histo.css"/>
 	</head>
 	<body>
 		<div id='histo'>
 			<?php
-			readfile("html/navBar.html");
-			$login = "kevin";
+			require "navBar.php";
+			$login = $_SESSION["login"];
 			$userSession = $userRepository->findOneByLogin($login);
 			$games = $gameRepository->fetchAllByUser($userSession);
 			foreach ($games as $key => $game) { 

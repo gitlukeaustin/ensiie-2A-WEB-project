@@ -1,6 +1,7 @@
 <?php
 namespace User;
 
+use User\User;
 use User\UserHydrator;
 
 class UserRepository
@@ -49,7 +50,7 @@ class UserRepository
 
     /**
      * @param $login
-     * @return \User\User
+     * @return User
      */
     public function findOneByLogin($login){
         $user = null;
@@ -59,7 +60,7 @@ class UserRepository
 
         $allUsers = $statement->fetchAll();
         foreach ($allUsers as $userData){
-            $newUser = new \User\User();
+            $newUser = new User();
             $user = $this->hydrator->hydrate($userData, clone $newUser);
         }
         return $user;
@@ -74,22 +75,22 @@ class UserRepository
 
         $allUsers = $statement->fetchAll();
         foreach ($allUsers as $userData){
-            $newUser = new \User\User();
+            $newUser = new User();
             $user = $this->hydrator->hydrate($userData, clone $newUser);
         }
         return $user;
     }
 
     /**
-     * @param \User\User $user
+     * @param User $user
      */
-    public function create(\User\User $user){
+    public function create(User $user){
         $userArray = $this->hydrator->extract($user);
         $statement = $this->connection->prepare('INSERT INTO "User"(login, password, email, isadmin, ects) values(:login, :password, :email, :isadmin, :ects)');
         $statement->bindParam(':login',$userArray['login']);
         $statement->bindParam(':password',$userArray['password']);
         $statement->bindParam(':email',$userArray['email']);
-        $statement->bindParam(':isadmin',$userArray['isadmin']);
+        $statement->bindParam(':isadmin',$userArray['isAdmin']);
         $statement->bindParam(':ects',$userArray['ects']);
         $statement->execute();
     }

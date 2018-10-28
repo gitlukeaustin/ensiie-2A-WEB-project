@@ -33,8 +33,10 @@ $dispatched = $front->dispatch();
         <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
         <link rel="stylesheet" href="css/jeu.css?ver=2">
         <link rel="stylesheet" href="css/default.css">
+
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <!-- production version, optimized for size and speed
@@ -42,7 +44,7 @@ $dispatched = $front->dispatch();
         <script type="text/javascript" src="js/jeu.js?ver=8" ></script>
     </head>
     <body>
-        <?php readfile("html/navBar.html"); ?>
+        <?php require 'navBar.php'; ?>
         <div class="container">
             <?php readfile("html/jeu.html"); ?>
         </div>

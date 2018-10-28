@@ -20,7 +20,7 @@ session_start();
 		
 	</head>
 	<body>
-	<?php readfile("html/navBar.html"); ?>
+	<?php require "navBar.php"; ?>
 		<br><br>
 		<div class="container">
 			<div class="wrapper">
@@ -37,16 +37,18 @@ session_start();
 					<tbody>
 						<?php
 							$leaderBoard = $userRepository->findTopTen();
-							$rank=1;
-							foreach ($leaderBoard as $key => $user) {
-								if($leaderBoard[0]!= $user && $user->ratio<$leaderBoard[$key-1]->ratio) {
-									$rank++;
+							if(count($leaderBoard)!=0) {
+								$rank=1;
+								foreach ($leaderBoard as $key => $user) {
+									if($leaderBoard[0]!= $user /*&& $user->ratio<$leaderBoard[$key-1]->ratio*/) {
+										$rank++;
+									}
+									$login = $user->login;
+									$totGame = $user->totalgames;
+									$wins = $user->wins;
+									$ratio = $user->ratio;
+									echo "<tr><td>$rank</td><td>$login</td><td>$totGame</td><td>$wins</td><td>$ratio</td></tr>";
 								}
-								$login = $user->login;
-								$totGame = $user->totalgames;
-								$wins = $user->wins;
-								$ratio = $user->ratio;
-								echo "<tr><td>$rank</td><td>$login</td><td>$totGame</td><td>$wins</td><td>$ratio</td></tr>";
 							}
 						?>
 					</tbody>

@@ -52,6 +52,27 @@ INSERT INTO Unit(id,name,id_cat,description) VALUES(9,'Etudiant B',4,'Professeur
 
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('kevin','test','test@gmail.com',true,0);
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('toto','test','toto@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('paul','test','test@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('dragodia','test','toto@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('luke','test','test@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('omar','test','toto@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('immo','test','test@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('boulet','test','toto@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('michou','test','test@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('titi','test','toto@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('lili','test','test@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('bibicheDu28','test','toto@gmail.com',true,0);
+
 
 INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',2,50);
 INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',1,50);
+
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',2,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',1,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(3,4,'terminé',4,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(5,8,'terminé',8,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(4,7,'terminé',4,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(5,8,'terminé',5,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(10,11,'terminé',11,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(11,12,'terminé',11,50);
+
