@@ -59,22 +59,58 @@ class FrontController
                     $simplearray = ["a", "b", "c"];
                     echo json_encode($catArray);
                     return true;
-                } else if ($this->params['get']['action'] == 'send_selection') {
-                    $selected = json_decode($this->params['post']['data'],true); // decode as array
+                } 
+                else if ($this->params['get']['action'] == 'simulate') {
+                    
+                    $data = json_decode($this->params['post']['data'],true); // decode as array
                     $j1 = $_SESSION['user']; // $j1 = userHydro->hydrate($_SESSION['user'])
-                    $no_p2 = true;
-                    if($no_p2){
+                    
+                    $log = ['Aucun adversaire présent - lancement d\'un match simulé.'];
+                    
+                    $robot = ['login'=> 'robot'];
+                    $cartesRobot = [['type'=>'Soldat','name'=>'Soldat','attack'=>2,'defence'=>2,'chance'=>0.9],
+                        ['type'=>'Mur','name'=>'Mur','attack'=>0,'defence'=>2,'chance'=>0.9],
+                        ['type'=>'Soldat','name'=>'Soldat','attack'=>2,'defence'=>2,'chance'=>0.9]];
+                    
+                    $sim = new Simulator();
+                    $winner = $sim->simulate($data['selected'],$cartesRobot,$j1,$robot);
+                    //array_push($log,$sim->getLog()??['']);
+                    foreach($sim->getLog()??[''] as $l){
+                        $log[] = $l;
+                    }
+                    
+                    if($winner == NULL){
+                        $log[] = "Exéco.";
+                    }
+                    else{
+                        $log[] = "Le joueur ".$winner['login']." a gagné!";
+                    }
+                    
+                    echo json_encode(['data' => $data['selected'], 'log' => $log, 'adv' => $cartesRobot]);
+                    return true;
+                
+                } 
+                else if ($this->params['get']['action'] == 'send_selection') {
+                    $data = json_decode($this->params['post']['data'],true); // decode as array
+                    $j1 = $_SESSION['user']; // $j1 = userHydro->hydrate($_SESSION['user'])  
+                    $gameRepository = new \Game\GameRepository($this->connection);
+                    $gameHydrator = new \Game\GameHydrator();
+                    $game = $gameRepository->findGameById($data['game']['id']);
+                    $cards = $game->getCards();
+
+                    if($cards == NULL ){
                         
-                        $log = ['Aucun adversaire présent - lancement d\'un match simulé.'];
-                        
-                        $robot = ['login'=> 'robot'];
-                        $cartesRobot = [['type'=>'Soldat','name'=>'Soldat','attack'=>2,'defence'=>2,'chance'=>0.9],
-                            ['type'=>'Mur','name'=>'Mur','attack'=>0,'defence'=>2,'chance'=>0.9],
-                            ['type'=>'Soldat','name'=>'Soldat','attack'=>2,'defence'=>2,'chance'=>0.9]];
-                        
+                        $cardArray = json_encode([$j1['login'] => $data['selected'],$data['adv'] => '']);
+
+                        $gameRepository->updateCards($data['game']['id'],$cardArray);
+
+                        echo json_encode(['data' => $data['selected'], 'log' => '', 'resolved' => false]);
+                    }
+                    else{
+                        $cardArray = json_decode($cards,true);
                         $sim = new Simulator();
-                        $winner = $sim->simulate($selected,$cartesRobot,$j1,$robot);
-                        //array_push($log,$sim->getLog()??['']);
+                        $j2 = ['login'=> $data['adv']];
+                        $winner = $sim->simulate($data['selected'],$cardArray[$data['adv']],$j1,$j2);
                         foreach($sim->getLog()??[''] as $l){
                             $log[] = $l;
                         }
@@ -85,9 +121,65 @@ class FrontController
                         else{
                             $log[] = "Le joueur ".$winner['login']." a gagné!";
                         }
-                        // mis a jour de la base du vainqueur
+                        $gameRepository->updateMessages($data['game']['id'],json_encode($log));
+                        
+                        $gameRepository->updateWinner($data['game']['id'],$winner['login']);
+                        
+                        echo json_encode(['data' => $data['selected'], 'log' => $log, 'resolved' => true, 'adv' => $cardArray[$data['adv']]]);
+
                     }
-                    echo json_encode(['data' => $selected, 'log' => $log, 'adv' => $cartesRobot]);
+                    return true;
+                } 
+                else if ($this->params['get']['action'] == 'connect') {
+                    $gameRepository = new \Game\GameRepository($this->connection);
+                    $gameHydrator = new \Game\GameHydrator();
+                    $j = $_SESSION['user'];
+                    $game = $gameRepository->findPlayer($j);
+                    $c = true;
+                    $adv = '';
+                    if(strlen($game->getIdPlayer2().'') == 0){
+                        $c = false;
+                    }
+                    else{
+                        $adv = $gameRepository->findOtherLogin($data['id'],$_SESSION['login']);
+                    }
+                    echo json_encode(['game' => $gameHydrator->extract($game), 'log' => '', 'connected' => $c,'adv' => $adv]);
+                    return true;
+                
+                } else if ($this->params['get']['action'] == 'ping_server') {
+                    $gameRepository = new \Game\GameRepository($this->connection);
+                    $gameHydrator = new \Game\GameHydrator();
+
+                    $data = json_decode($this->params['post']['data'],true);
+                    $j = $_SESSION['user'];
+                    
+                    $game = $gameRepository->findGameById($data['id']);
+
+                    $c = true;
+                    $adv2 = '';
+                    if(strlen($game->getIdPlayer2().'') == 0){
+                        $c = false;
+                    }
+                    else{
+                        $adv2 = $gameRepository->findOtherLogin($data['id'],$_SESSION['login']);
+                    }
+                    echo json_encode(['game' => $gameHydrator->extract($game), 'log' => '', 'connected' => $c, 'adv' => $adv2]);
+                    return true;
+                }
+                else if ($this->params['get']['action'] == 'ping_resolution') {
+                    $gameRepository = new \Game\GameRepository($this->connection);
+                    $gameHydrator = new \Game\GameHydrator();
+
+                    $data = json_decode($this->params['post']['data'],true);
+                    
+                    $game = $gameRepository->findGameById($data['game']['id']);
+                    $log = json_decode($game->getMessages());
+                    $r = true;
+                    if($log == NULL){
+                        $r = false;
+                    }
+                    
+                    echo json_encode(['game' => $gameHydrator->extract($game), 'log' => $log, 'resolved' => $r]);
                     return true;
                 }
                 return false;

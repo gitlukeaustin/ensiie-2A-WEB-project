@@ -13,8 +13,8 @@ CREATE TABLE Game (
    id_j1 integer REFERENCES "User"(id),
    id_j2 integer REFERENCES "User"(id),
    status VARCHAR NOT NULL,
-   cards VARCHAR NOT NULL,
-   messages VARCHAR NOT NULL,
+   cards JSON,
+   messages JSON,
    id_winner integer REFERENCES "User"(id),
    po integer NOT NULL
 );
@@ -43,12 +43,14 @@ INSERT INTO Category(id,attack,defence,type,cost,chance) VALUES (2,5,2,'Soldat',
 INSERT INTO Category(id,attack,defence,type,cost,chance) VALUES (3,2,4,'Etudiant',7,0.9);
 INSERT INTO Category(id,attack,defence,type,cost,chance) VALUES (4,7,5,'Professeur',7,0.6);
 
-INSERT INTO Unit(id,name,id_cat,description) VALUES(1,'Mur A',1,'Mur Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(2,'Mur B',1,'Mur Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(3,'Soldat A',2,'Soldat Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(4,'Soldat B',2,'Soldat Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(5,'Etudiant A',3,'Etudiant Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(9,'Etudiant B',4,'Professeur Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(1,'Mur',1,'Mur Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(3,'Soldat',2,'Soldat Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(5,'Eleve1',3,'Etudiant Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(6,'Eleve2',3,'Etudiant Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(9,'Prof1',4,'Professeur Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(10,'Prof2',4,'Professeur Description');
+
+
 
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('kevin','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0);
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('toto','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0);
@@ -63,11 +65,15 @@ INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('titi','$2y$10$m/tJ
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('lili','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0);
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('bibicheDu28','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0);
 
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(1,2,'terminé','','',2,50);
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(1,2,'terminé','','',1,50);
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(3,4,'terminé','','',4,50);
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(5,8,'terminé','','',8,50);
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(4,7,'terminé','','',4,50);
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(5,8,'terminé','','',5,50);
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(10,11,'terminé','','',11,50);
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(11,12,'terminé','','',11,50);
+
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',2,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',1,50);
+
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',2,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',1,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(3,4,'terminé',4,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(5,8,'terminé',8,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(4,7,'terminé',4,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(5,8,'terminé',5,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(10,11,'terminé',11,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(11,12,'terminé',11,50);

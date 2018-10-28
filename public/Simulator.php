@@ -14,7 +14,7 @@ class Simulator {
 		$attack = 0;
 		$c1 = $this->drawCard($cards1,$j1);
 		$c2 = $this->drawCard($cards2,$j2);
-		$i = 6;
+		$i = 20; 
 		while($i > 0){
 			$i -= 1;
 			if($c1 == NULL){
@@ -30,6 +30,8 @@ class Simulator {
 				$this->winner = $j1;
 			}
 			else{
+				$this->log[] = $c1['name']." [".$j1['login']."] a:".$c1['attack']."/d:".$c1['defence']." &#9876;  ".$c2['name']."  [".$j2['login']."] a:".$c2['attack']."/d:".$c2['defence'];
+
 				$attack = $this->confront($c1,$c2,$j1,$j2);
 				$c2['defence'] = $c2['defence'] - $attack;
 				
@@ -64,14 +66,13 @@ class Simulator {
 	}
 	
 	private function confront($attackCard,$defenceCard,$attacker,$defender){
-		//$this->log[] = "Confrontation: ".$attackCard['name']." (".$attacker['login'].") vs  ".$defenceCard['name']."  (".$defender['login'].")";
 		if(rand(0,1) > $attackCard['chance']){
 			$this->log[] = "L'attaque du ".$attackCard['name']." de ".$attacker['login']." a échoué!";
 			return 0;
 		}
 		else{
-			$this->log[] = $attackCard['name']." de ".$attacker['login']." a attaqué un(e) ".$defenceCard['name']." pour ".$attackCard['attack']." points!";
-			$this->log[] = "Vie de ".$defenceCard['name']." : ".($defenceCard['defence'] - $attackCard['attack']); 
+			//$this->log[] = $attackCard['name']." de ".$attacker['login']." a attaqué un(e) ".$defenceCard['name']." pour ".$attackCard['attack']." points!";
+			//$this->log[] = "Vie de ".$defenceCard['name']." : ".($defenceCard['defence'] - $attackCard['attack']); 
 			return $attackCard['attack'];	
 		}
 	}
