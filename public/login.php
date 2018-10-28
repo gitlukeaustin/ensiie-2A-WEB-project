@@ -71,7 +71,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 'login' => $login ?? null,
                 'password' => $password ?? null,
                 'email' => $email ?? null,
-                'isAdmin' => false,
+                'isAdmin' => 0,
                 'ects' => 0,
             ],
             'errors' => [],
