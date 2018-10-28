@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $view = [
             'user' => [
                 'login' => $login ?? null,
-                'password' => $password ?? null,
+                'password' => password_hash($_POST['loginPassword'], PASSWORD_DEFAULT) ?? null,
             ],
             'errors' => [],
         ];
@@ -46,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $view['errors']['not_exists'] = 'Utilisateur inexistant.';
             } else {
 
-                if ($password === $user->getPassword()) {
+                if (password_verify($password, $user->getPassword())) {
                     $_SESSION['uniqid'] = uniqid();
                     $_SESSION['login'] = $login;
                     $_SESSION['user'] = $userHydrator->extract($user);
@@ -63,13 +63,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         /* Register */
         $login = $_POST['registerUsername'];
         $password = $_POST['registerPassword'];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $email = $_POST['registerEmail'];
         $confirmPassword = $_POST['registerConfirmPassword'];
 
         $view = [
             'user' => [
                 'login' => $login ?? null,
-                'password' => $password ?? null,
+                'password' => $hashed_password ?? null,
                 'email' => $email ?? null,
                 'isAdmin' => 0,
                 'ects' => 0,
