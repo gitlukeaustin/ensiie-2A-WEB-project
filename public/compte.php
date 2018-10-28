@@ -10,7 +10,7 @@ $userRepository = new UserRepository($connection);
 $userHydrator = new \User\UserHydrator();
 @ob_start();
 session_start();
-readfile("html/navBar.html");
+require "navBar.php";
 
 if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['uniqid']) && $_SESSION['uniqid'] != null){
 	$user = $userRepository->findOneByLogin($_SESSION['login']);
