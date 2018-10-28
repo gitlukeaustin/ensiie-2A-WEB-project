@@ -21,7 +21,11 @@ var app =new Vue({
     coins:50,
     selected: [],
     adv: [],
-    locked:false
+    locked:false,
+    game:{},
+    connected:false,
+    adv_login:'',
+    timeoutId: 0
   },
   mounted: function(){
     axios
@@ -41,6 +45,35 @@ var app =new Vue({
 
     })
     .catch(error => console.log(error));
+    // Create WebSocket connection.
+    axios
+    .get('http://localhost:8080/jeu.php?action=connect')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.game = response.data.game;
+      console.log(response);
+
+      if(!response.data.connected){
+        this.pingServer(10);
+      }
+      else{
+        this.adv_login = response.data.adv;
+        this.connected = true;
+      }
+      /*game	{…}
+      id	9
+      id_j1	1
+      po	50
+      status	
+      cards	
+      messages	
+      createdat	28-10-2018
+      log	
+      connected	false*/
+    })
+    .catch(error => console.log(error));
+    
+    
    },
    filters: {
     // Filter definitions
@@ -52,6 +85,39 @@ var app =new Vue({
      }
   },
   methods: {
+    logDelay: function(data,i) {
+      self = this;
+      self.timeoutId = setTimeout(function() {
+        self.log += data[i] + "</br>"; 
+        if(i < data.length - 1)
+          self.logDelay(data,i+1);  
+      }, 1500);
+    },
+    cancelTimeout: function() {
+      clearTimeout(this.timeoutId);
+    },
+    pingServer(tries){
+      const formData = new FormData();
+   
+      formData.append('data', JSON.stringify(this.game));
+      axios
+      .post('http://localhost:8080/jeu.php?action=ping_server',formData)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        console.log(response.data);
+        //this.adv = response.data.adv;
+        self = this;
+        if(!response.data.connected){
+          setTimeout(function(){if(tries > 0)self.pingServer(tries-1);},1000);
+        }
+        else{
+          this.log += "Joueur trouvé.</br>";
+          this.adv_login = response.data.adv;
+          this.connected = true;
+        }
+      })
+      .catch(error => console.log(error));
+    },
   	send: function() {
       if(this.locked){
         this.log += "Déjà envoyé. </br>";
@@ -60,21 +126,51 @@ var app =new Vue({
         this.locked = true;
         console.log("sending");
         const formData = new FormData();
-   
-        formData.append('data', JSON.stringify(this.selected));
+        if(this.connected){
+          action = 'send_selection';
+        }else{
+          action = 'simulate';
+        }
+
+        formData.append('data', JSON.stringify({'selected':this.selected,'game':this.game,'adv':this.adv_login}));
         axios
-        .post('http://localhost:8080/jeu.php?action=send_selection',formData)
+        .post('http://localhost:8080/jeu.php?action='+action,formData)
         .then(response => {
           // JSON responses are automatically parsed.
           console.log(response.data);
-          this.adv = response.data.adv;
-
-          for(i = 0; i < response.data.log.length;i++){
-             this.log += response.data.log[i] + "</br>";
+          
+          if(response.data.resolved){
+            this.adv = response.data.adv;
+            this.logDelay(response.data.log,0);
           }
+          else{
+            this.log += "En attente des choix de "+this.adv_login+"</br>";
+            this.pingResolution(20);
+          }
+          
         })
         .catch(error => console.log(error));
       }
+    },
+    pingResolution: function(tries){
+      const formData = new FormData();
+
+      formData.append('data', JSON.stringify({'game':this.game}));
+        axios
+        .post('http://localhost:8080/jeu.php?action=ping_resolution',formData)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          console.log(response.data);
+          
+          if(response.data.resolved){
+            this.logDelay(response.data.log,0);
+          }
+          else{
+            setTimeout(function(){if(tries > 0)self.pingResolution(tries-1);},1000);
+          }
+          
+        })
+        .catch(error => console.log(error));
     },
     selectCard: function(card){
 

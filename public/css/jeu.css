@@ -1,14 +1,14 @@
 body {
   background: #20262E;
-  padding: 20px;
-  font-family: Helvetica;
 }
 
 #app {
+  margin:10px;
   background: #fff;
-  padding: 10px;
+  padding: 5px;
   transition: all 0.2s;
   display: flex;
+  font-size:14px;
   max-width:1000px;
   height:443px; 
 }

@@ -13,8 +13,8 @@ CREATE TABLE Game (
    id_j1 integer REFERENCES "User"(id),
    id_j2 integer REFERENCES "User"(id),
    status VARCHAR NOT NULL,
-   cards VARCHAR NOT NULL,
-   messages VARCHAR NOT NULL,
+   cards JSON,
+   messages JSON,
    id_winner integer REFERENCES "User"(id),
    po integer NOT NULL
 );
@@ -53,5 +53,5 @@ INSERT INTO Unit(id,name,id_cat,description) VALUES(9,'Etudiant B',4,'Professeur
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('kevin','test','test@gmail.com',true,0);
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('toto','test','toto@gmail.com',true,0);
 
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(1,2,'terminé','','',2,50);
-INSERT INTO Game(id_j1,id_j2,status,cards,messages,id_winner,po) VALUES(1,2,'terminé','','',1,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',2,50);
+INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',1,50);

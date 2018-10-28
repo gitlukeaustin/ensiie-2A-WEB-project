@@ -26,7 +26,8 @@
       </div>
     </div>
     <div id="hand">
-      <div class="card" v-on:click="selectCard(cat)" v-for="cat in categories">
+      <div class="card" v-on:click="selectCard(cat)" :text="cat.description" v-for="cat in categories">
+        
         <div class="top">
           <div class="cost">
             {{cat.cost}}
@@ -51,7 +52,7 @@
       </div>
     </div>
   </div>
-  <div id="log">
+  <div id="log" v-on:click="cancelTimeout">
     <p v-html="log">
 
     </p>
