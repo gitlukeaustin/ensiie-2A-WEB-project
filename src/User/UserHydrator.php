@@ -25,11 +25,11 @@ class UserHydrator
             $data['password'] = $object->getPassword();
         }
 
-        if ($object->getEcts()) {
+        if ($object->getEcts()!== null) {
             $data['ects'] = $object->getEcts();
         }
 
-        if ($object->isAdmin()) {
+        if ($object->isAdmin() !== null) {
             $data['isAdmin'] = $object->isAdmin();
         }
         return $data;
