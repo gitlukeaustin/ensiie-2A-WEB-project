@@ -2,20 +2,20 @@
   <div id="game">
   <div id="plateau">
     <div class="chateau icon" id="chateau_adversaire">
-      <img :src="img.castle" />
+      <img :src="img.ecole2" />
     </div>
     <div id="adv_cards">
       <div class="unit" v-for="placed in adv">
-        <img :src="'image/'+placed.type +'.png' | lowercase" :alt="placed.type"/>
+        <img :src="'image/'+placed.name +'.png' | lowercase" :alt="placed.name"/>
       </div>
     </div>
     <div id="placed_cards">
       <div class="unit" v-for="placed in selected">
-        <img :src="'image/'+placed.type +'.png' | lowercase" :alt="placed.type"/>
+        <img :src="'image/'+placed.name +'.png' | lowercase" :alt="placed.name"/>
       </div>
     </div>
     <div class="chateau icon" id="chateau_joueur">
-      <img src="http://simpleicon.com/wp-content/uploads/castle.png" />
+      <img :src="img.ecole1" />
     </div>
     <div id="start">
       <button v-on:click="send">

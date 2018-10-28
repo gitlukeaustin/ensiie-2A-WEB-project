@@ -4,7 +4,9 @@ var app =new Vue({
   data: {
     info : 0,
     img: {
-      castle:"http://simpleicon.com/wp-content/uploads/castle.png"
+      castle:"http://simpleicon.com/wp-content/uploads/castle.png",
+      ecole1:"image/ecole1.png",
+      ecole2:"image/ecole2.png"
    },
   	categories: [
     	//{ id:1, type: "Mur", attack:0, defence:8, cost:8, chance:0.1},
@@ -91,7 +93,7 @@ var app =new Vue({
         self.log += data[i] + "</br>"; 
         if(i < data.length - 1)
           self.logDelay(data,i+1);  
-      }, 1500);
+      }, 1100);
     },
     cancelTimeout: function() {
       clearTimeout(this.timeoutId);
@@ -139,13 +141,19 @@ var app =new Vue({
           // JSON responses are automatically parsed.
           console.log(response.data);
           
-          if(response.data.resolved){
-            this.adv = response.data.adv;
-            this.logDelay(response.data.log,0);
+          if(this.connected){
+            if(response.data.resolved){
+              this.adv = response.data.adv;
+              this.logDelay(response.data.log,0);
+            }
+            else{
+              this.log += "En attente des choix de "+this.adv_login+"</br>";
+              this.pingResolution(20);
+            }
           }
           else{
-            this.log += "En attente des choix de "+this.adv_login+"</br>";
-            this.pingResolution(20);
+            this.adv = response.data.adv;
+            this.logDelay(response.data.log,0);
           }
           
         })

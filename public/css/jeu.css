@@ -42,7 +42,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap-reverse;
-  min-height: 90px;
+  min-height: 40px;
   flex-grow:5;
   justify-content: space-evenly;
   align-items: first baseline;
@@ -52,7 +52,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap-reverse;
-  min-height: 90px;
+  min-height: 40px;
   flex-grow:5;
   justify-content: space-evenly;
   align-items: first baseline;
@@ -107,7 +107,7 @@ body {
 
 .attack {
   color: red;
-}!
+}
 
 .defence {
   color: green;
@@ -122,7 +122,7 @@ body {
 }
 
 .chateau img {
-  max-height: 50px;
+  max-height: 100px;
 }
 
 .unit img {

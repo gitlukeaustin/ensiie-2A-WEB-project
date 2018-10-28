@@ -43,12 +43,14 @@ INSERT INTO Category(id,attack,defence,type,cost,chance) VALUES (2,5,2,'Soldat',
 INSERT INTO Category(id,attack,defence,type,cost,chance) VALUES (3,2,4,'Etudiant',7,0.9);
 INSERT INTO Category(id,attack,defence,type,cost,chance) VALUES (4,7,5,'Professeur',7,0.6);
 
-INSERT INTO Unit(id,name,id_cat,description) VALUES(1,'Mur A',1,'Mur Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(2,'Mur B',1,'Mur Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(3,'Soldat A',2,'Soldat Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(4,'Soldat B',2,'Soldat Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(5,'Etudiant A',3,'Etudiant Description');
-INSERT INTO Unit(id,name,id_cat,description) VALUES(9,'Etudiant B',4,'Professeur Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(1,'Mur',1,'Mur Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(3,'Soldat',2,'Soldat Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(5,'Eleve1',3,'Etudiant Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(6,'Eleve2',3,'Etudiant Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(9,'Prof1',4,'Professeur Description');
+INSERT INTO Unit(id,name,id_cat,description) VALUES(10,'Prof2',4,'Professeur Description');
+
+
 
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('kevin','test','test@gmail.com',true,0);
 INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('toto','test','toto@gmail.com',true,0);

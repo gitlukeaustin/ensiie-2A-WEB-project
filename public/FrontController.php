@@ -86,7 +86,7 @@ class FrontController
                         $log[] = "Le joueur ".$winner['login']." a gagné!";
                     }
                     
-                    echo json_encode(['data' => $selected, 'log' => $log, 'adv' => $cartesRobot]);
+                    echo json_encode(['data' => $data['selected'], 'log' => $log, 'adv' => $cartesRobot]);
                     return true;
                 
                 } 
