@@ -115,6 +115,8 @@ class FrontController
                             $log[] = $l;
                         }
                         
+                        $cardsEv = [$j1['login'] => $data['selected'],$j2['login'] => $cardArray[$data['adv']]];
+
                         if($winner == NULL){
                             $log[] = "Exéco.";
                         }
@@ -123,6 +125,8 @@ class FrontController
                         }
                         $gameRepository->updateMessages($data['game']['id'],json_encode($log));
                         
+                        $gameRepository->updateCards($data['game']['id'],json_encode($cardsEv));
+
                         $gameRepository->updateWinner($data['game']['id'],$winner['login']);
                         
                         echo json_encode(['data' => $data['selected'], 'log' => $log, 'resolved' => true, 'adv' => $cardArray[$data['adv']]]);

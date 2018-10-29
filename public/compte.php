@@ -12,29 +12,54 @@ $userHydrator = new \User\UserHydrator();
 session_start();
 require "navBar.php";
 
+
+
+
+
 if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['uniqid']) && $_SESSION['uniqid'] != null){
 	$user = $userRepository->findOneByLogin($_SESSION['login']);
-}
 
-function modify(){
-	echo $_POST['login'];
+	if($user->isAdmin() == true)
+		header('Location: /admin.php');
+
+}
+	
+else 
+	var_dump("error");
+
+
+if(isset($_GET['status'])){
+	if($_GET['status'] == 'successModify')
+		echo "<b> Your informations are successufly modified ! </b>";
+	if($_GET['status'] == 'successDelete')
+		echo "<b> Your account has been deleted !</b>";
 }
 ?>
+
 
 <script type="text/javascript">
 	var columns =['login', 'email', 'ects'];
 
 	function enableInputs(){
-		alert("aaaaaaaa");
-
-		for (var i = columns.length - 1; i >= 0; i--) {
-			if(typeof columns[i] !== 'undefined' && columns[i] !== null) {
+		for (var i = columns.length - 1; i >= 0; i--) 
 				document.getElementById(columns[i]).disabled = false;
-				//alert('test' + columns[i]);
-			}
-		}
-		alert("dd ");
+		document.getElementById("validate").style="width: 100px;"
+		document.getElementById("modify").style="width: 100px; display:none;"
 	}
+
+	function validateInputs(){
+		var id = document.getElementById("user_id").value;
+		var newLogin = document.getElementById("login").value;
+		var newEmail = document.getElementById("email").value;
+		var newEcts = document.getElementById("ects").value;
+
+		window.location.href="modify.php?login="+newLogin+"&email="+newEmail+"&ects="+newEcts+"&id="+id;
+	}
+
+	function display_historique(){
+		window.location.href="historique.php";
+	}
+
 </script>
 <html>
 <link href="../css/compte.css" rel="stylesheet"></link>
@@ -46,12 +71,12 @@ function modify(){
         <br /><br />
 
         <div class="fadeIn first">
-            <h1>Account Information</h1>
+            <h3>Account Information</h3>
         </div>
 
-        <br /><br />
 
         <?php if(isset($_SESSION['login']) && $_SESSION['login'] != null) { ?>
+        	    
 	            <b>Login : <input type="text" id="login" class="fadeIn second" style="width: 200px;" name="login" value="<? echo $user->getLogin() ?>" placeholder="username" disabled />
 	            <br />
 	            Email : <input type="text" id="email" class="fadeIn third" style="width: 200px;" name="email"  value="<? echo $user->getEmail() ?>" placeholder="email" disabled />
@@ -69,9 +94,12 @@ function modify(){
 	        			</td>
 	        			<td>
 	        				<form method="POST" action="compte.php">
-				        		<input type="hidden" name='_user_id' value='<? echo $user->getId() ?>' >
-					        	<input type="button" onclick="enableInputs()" class="fadeIn fourth" value="modify" style="width: 100px" >
+				        		<input type="hidden" id='user_id' value='<?php echo $user->getId() ?>' >
+					        	<input type="button" id='modify' onclick="enableInputs()" class="fadeIn fourth" value="modify" style="width: 100px" >
+					        	<input type="button" id='validate' onclick="validateInputs()" class="fadeIn fourth" value="validate" style="width: 100px; display: none;" >
+					        	<input type="button" id='historique' class="fadeIn fourth" value="Historique" onclick="display_historique()" style="width: 100px;" >
 				        	</form>
+				        	
 	        			</td>
 	        		</tr>
 	        	</table>

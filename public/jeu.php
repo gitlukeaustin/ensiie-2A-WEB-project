@@ -45,7 +45,7 @@ $dispatched = $front->dispatch();
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <!-- production version, optimized for size and speed
         <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-        <script type="text/javascript" src="js/jeu.js?ver=8" ></script>
+        <script type="text/javascript" src="js/jeu.js?ver=9" ></script>
     </head>
     <body>
         <?php require 'navBar.php'; ?>
