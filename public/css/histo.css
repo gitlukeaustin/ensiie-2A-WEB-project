@@ -1,5 +1,5 @@
 .histoGame {
-	height: 8em;
+	height: 6em;
 	width: 60%;
 	margin: auto;
 	border: 1px solid gray;
@@ -15,7 +15,7 @@
 }
 
 .players {
-	margin-top:20px;
+	margin-top:0px;
 	text-align: center;
 	vertical-align: center;
 }

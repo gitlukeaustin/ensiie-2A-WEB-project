@@ -38,7 +38,7 @@ class GameRepository
     public function fetchAllByUser(\User\User $user)
     {
         $id=$user->getId();
-        $rows = $this->connection->query("SELECT * from Game where id_j1=$id or id_j2=$id")->fetchAll(\PDO::FETCH_OBJ);
+        $rows = $this->connection->query("SELECT * from Game where (id_j1=$id or id_j2=$id) and id_winner is not null")->fetchAll(\PDO::FETCH_OBJ);
         $games = [];       
         foreach ($rows as $row) {
              $games[] = $this->hydrator->hydrate((array)$row,new \Game\Game());
