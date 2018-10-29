@@ -24,7 +24,7 @@ body {
   /*background: lightgreen;*/
 
 
-  background-image: url("../image/carte.jpg");
+  background-image: url("../image/carte_transparent.png");
   display: flex;
   flex-direction: column;
   flex-grow: 2;
