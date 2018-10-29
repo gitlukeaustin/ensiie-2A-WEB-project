@@ -115,7 +115,7 @@ class UserRepository
      */
     public function findTopTen(){
         $user = null;
-        $rows = $this->connection->query('SELECT login,sum(CASE when id_winner is not null THEN 1 ELSE 0 END) as TotalGames,sum(CASE when id_winner=a.id THEN 1 ELSE 0 END ) wins,(CAST(sum(CASE when id_winner=a.id THEN 1 ELSE 0 END ) as float))/(sum(CASE when id_winner is not null THEN 1 ELSE 0 END)) ratio FROM "User" a,Game b where a.id=b.id_j1 or a.id=b.id_j2 group by login order by ratio desc LIMIT 10;')->fetchAll(\PDO::FETCH_OBJ);
+        $rows = $this->connection->query('SELECT login,sum(CASE when id_winner is not null THEN 1 ELSE 0 END) as TotalGames,sum(CASE when id_winner=a.id THEN 1 ELSE 0 END ) wins, Case when (sum(CASE when id_winner is not null THEN 1 ELSE 0 END))!=0 then(CAST(sum(CASE when id_winner=a.id THEN 1 ELSE 0 END ) as float))/(sum(CASE when id_winner is not null THEN 1 ELSE 0 END)) else 0 end ratio FROM "User" a,Game b where a.id=b.id_j1 or a.id=b.id_j2 group by login order by ratio desc LIMIT 10;')->fetchAll(\PDO::FETCH_OBJ);
         return $rows;
     }
 
