@@ -20,5 +20,5 @@ $userRepository->deleteUserById($_POST['id']);
 $_SESSION['login'] = array();
 session_destroy();
 
-header("location: compte.php");
+header("location: compte.php?status=successDelete");
 ?>
