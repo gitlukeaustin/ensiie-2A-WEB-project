@@ -47,7 +47,7 @@ class UserHydrator
             ->setLogin($data['login'] ?? null)
             ->setPassword($data['password'] ?? null)
             ->setEcts($data['ects'] ?? null)
-            ->setIsAdmin($data['isAdmin'] ?? null)
+            ->setIsAdmin($data['isadmin'] ?? null)
             ->setIsActif($data['isActif'] ?? null);
     }
 
