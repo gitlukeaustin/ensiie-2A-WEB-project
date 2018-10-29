@@ -10,7 +10,10 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 $userRepository = new UserRepository($connection);
 $userHydrator = new \User\UserHydrator();
 @ob_start();
-session_start();
+if(!isset($_SESSION))
+{
+    session_start();
+}
 require 'navBar.php';
 
 if(isset($_SESSION['uniqid']) && isset($_SESSION['login'])){

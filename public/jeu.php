@@ -1,8 +1,12 @@
 <?php
 require '../vendor/autoload.php';
+require 'redirect.php';
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+
 //postgres
 $dbName = getenv('DB_NAME');
 $dbUser = getenv('DB_USER');
@@ -18,7 +22,6 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 //$catRepo = new \Category\CategoryRepository($connection);
 //$cats = $catRepo->fetchAll();
 //var_dump($cats);
-
 $front = new FrontController($connection);
 
 $dispatched = $front->dispatch();
