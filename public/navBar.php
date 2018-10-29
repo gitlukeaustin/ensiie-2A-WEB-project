@@ -18,9 +18,11 @@
 					 echo '<a href="compte.php">'.$_SESSION["login"].'</a>';
 					}
 				?>
+                <?php if(isset($_SESSION["login"]) && isset($_SESSION["uniqid"])) { ?>
                 <a href="login.php?disconnect">
                     <input type="submit" class="btn btn-danger btn-mini" name="disconnect" id="disconnect" value=" "/>
                 </a>
+                <?php } ?>
 			</div>
 		</div>		
     </nav>
