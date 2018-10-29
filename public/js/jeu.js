@@ -27,7 +27,8 @@ var app =new Vue({
     game:{},
     connected:false,
     adv_login:'',
-    timeoutId: 0
+    timeoutId: 0,
+    advanceLog:false
   },
   mounted: function(){
     axios
@@ -62,20 +63,9 @@ var app =new Vue({
         this.adv_login = response.data.adv;
         this.connected = true;
       }
-      /*game	{…}
-      id	9
-      id_j1	1
-      po	50
-      status	
-      cards	
-      messages	
-      createdat	28-10-2018
-      log	
-      connected	false*/
+     
     })
-    .catch(error => console.log(error));
-    
-    
+    .catch(error => console.log(error)); 
    },
    filters: {
     // Filter definitions
@@ -89,14 +79,28 @@ var app =new Vue({
   methods: {
     logDelay: function(data,i) {
       self = this;
-      self.timeoutId = setTimeout(function() {
+     
+      if(!this.advanceLog){
+        self.timeoutId = setTimeout(function() {
+          self.log += data[i] + "</br>"; 
+          if(i < data.length - 1)
+            self.logDelay(data,i+1);  
+        }, 1100);
+      }
+      else{
+        this.advanceLog = false;
         self.log += data[i] + "</br>"; 
         if(i < data.length - 1)
-          self.logDelay(data,i+1);  
-      }, 1100);
+          self.logDelay(data,i+1); 
+      }
+      document.getElementById('log').scroll({
+        top: document.getElementById("log").scrollHeight,
+        behavior: "smooth"
+      });
     },
     cancelTimeout: function() {
-      clearTimeout(this.timeoutId);
+      console.log(this.advanceLog);
+      this.advanceLog = true;
     },
     pingServer(tries){
       const formData = new FormData();
@@ -171,6 +175,10 @@ var app =new Vue({
           console.log(response.data);
           
           if(response.data.resolved){
+            cards = JSON.parse(response.data.game.cards);
+            console.log(cards);
+            console.log(cards[this.adv_login]);
+            this.adv = cards[this.adv_login];
             this.logDelay(response.data.log,0);
           }
           else{
