@@ -47,7 +47,7 @@ session_start();
 									$totGame = $user->totalgames;
 									$wins = $user->wins;
 									$ratio = $user->ratio;
-									echo "<tr><td>$rank</td><td>$login</td><td>$totGame</td><td>$wins</td><td>$ratio</td></tr>";
+									echo "<tr><td>$rank</td><td>$login</td><td>$totGame</td><td>$wins</td><td>".round($ratio,2)."</td></tr>";
 								}
 							}
 						?>
