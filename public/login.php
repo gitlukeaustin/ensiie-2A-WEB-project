@@ -16,16 +16,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+if(isset($_GET['disconnect'])){
+    session_destroy();
+    session_start();
+    header('Location: http://localhost:8080');
+    exit();
+}
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
-
-    if(isset($_POST['disconnect'])){
-        session_destroy();
-        session_start();
-        header('Location: http://localhost:8080');
-        exit();
-    }
-
 
     /* Login */
     if(!isset($_POST['registerUsername'])) {

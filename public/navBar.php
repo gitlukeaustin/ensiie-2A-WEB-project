@@ -9,7 +9,7 @@
 				<a href="index.php"><span class='title'>Our game</span></a>
 			</div>
 			<div>
-			<a href="index.php">Accueil</a>
+			    <a href="index.php">Accueil</a>
 				<a href="jeu.php">Jeu</a>
 				<a href="index.php">Guide</a>
 				<a href="leaderBoard.php">Classement</a>
@@ -18,8 +18,11 @@
 					 echo '<a href="compte.php">'.$_SESSION["login"].'</a>';
 					}
 				?>
+                <a href="login.php?disconnect">
+                    <input type="submit" class="btn btn-danger btn-mini" name="disconnect" id="disconnect" value=" "/>
+                </a>
 			</div>
 		</div>		
-    </nav> 
+    </nav>
     <br>
 </header>
