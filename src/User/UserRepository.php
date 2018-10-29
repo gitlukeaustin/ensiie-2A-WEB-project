@@ -128,4 +128,20 @@ class UserRepository
 
         $statement->execute();
     }
+
+    public function getAllUsersList(){
+        $statement = $this->connection->prepare('SELECT * FROM "User"');
+        $statement->execute();
+
+        $usersList = array();
+
+        foreach ($statement->fetchAll() as $user){
+            $newUser = new User();
+            $user = $this->hydrator->hydrate($user, clone $newUser);
+
+            array_push($usersList, $user);
+        }
+
+        return $usersList;
+    } 
 }

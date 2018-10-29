@@ -63,7 +63,7 @@ if(isset($_GET['status'])){
         <!-- Tabs Titles -->
 
         <!-- Icon -->
-        <br /><br />
+        <br />
 
         <div class="fadeIn first">
             <h3>Account Information</h3>
@@ -101,10 +101,7 @@ if(isset($_GET['status'])){
 
         <?php } ?>
 
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-            <a class="underlineHover" href="#">Go to the Site</a>
-        </div>
+    
 
     </div>
 </div>
