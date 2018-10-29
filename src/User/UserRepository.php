@@ -103,7 +103,7 @@ class UserRepository
      */
     public function deleteUserById($id){
 
-        $statement = $this->connection->prepare('DELETE FROM "User" WHERE id = :id;');
+        $statement = $this->connection->prepare('UPDATE "User" SET isActif=false WHERE id = :id');
         $statement->bindParam(':id', $id);
         $statement->execute();
     
@@ -117,5 +117,15 @@ class UserRepository
         $user = null;
         $rows = $this->connection->query('SELECT login,sum(CASE when id_winner is not null THEN 1 ELSE 0 END) as TotalGames,sum(CASE when id_winner=a.id THEN 1 ELSE 0 END ) wins,(CAST(sum(CASE when id_winner=a.id THEN 1 ELSE 0 END ) as float))/(sum(CASE when id_winner is not null THEN 1 ELSE 0 END)) ratio FROM "User" a,Game b where a.id=b.id_j1 or a.id=b.id_j2 group by login order by ratio desc LIMIT 10;')->fetchAll(\PDO::FETCH_OBJ);
         return $rows;
+    }
+
+    public function modifyUserById($id, $login, $email, $ects){
+        $statement = $this->connection->prepare('UPDATE "User" SET login = :login , email = :email, ects = :ects WHERE id = :id');
+        $statement->bindParam(':id', $id);
+        $statement->bindParam(':login', $login);
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':ects', $ects);
+
+        $statement->execute();
     }
 }
