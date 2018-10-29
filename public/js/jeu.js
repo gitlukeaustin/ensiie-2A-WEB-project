@@ -57,7 +57,7 @@ var app =new Vue({
       console.log(response);
 
       if(!response.data.connected){
-        this.pingServer(10);
+        this.pingServer(20);
       }
       else{
         this.adv_login = response.data.adv;
@@ -114,7 +114,14 @@ var app =new Vue({
         //this.adv = response.data.adv;
         self = this;
         if(!response.data.connected){
-          setTimeout(function(){if(tries > 0)self.pingServer(tries-1);},1000);
+          setTimeout(function(){
+            if(tries > 0){
+              self.pingServer(tries-1);
+            }else{
+              self.log += "Aucun joueur trouvé. Veuillez rafraîchir la page" + "</br>";
+            }
+            
+          },1000);
         }
         else{
           this.log += "Joueur trouvé.</br>";
@@ -182,7 +189,13 @@ var app =new Vue({
             this.logDelay(response.data.log,0);
           }
           else{
-            setTimeout(function(){if(tries > 0)self.pingResolution(tries-1);},1000);
+            setTimeout(function(){
+              if(tries > 0){
+                self.pingResolution(tries-1);
+              } else {
+                self.log += "Resolution timeout.";
+              }
+            },1000);
           }
           
         })

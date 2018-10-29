@@ -21,7 +21,10 @@ body {
 }
 
 #plateau {
-  background: lightgreen;
+  /*background: lightgreen;*/
+
+
+  background-image: url("../image/carte.jpg");
   display: flex;
   flex-direction: column;
   flex-grow: 2;
