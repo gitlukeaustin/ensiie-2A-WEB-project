@@ -119,9 +119,10 @@ class FrontController
 
                         if($winner == NULL){
                             $log[] = "Exéco.";
-                            $gameRepository->updateWinner($data['game']['id'],$winner['login']);
                         }
                         else{
+                            $gameRepository->updateWinner($data['game']['id'],$winner['login']);
+
                             $log[] = "Le joueur ".$winner['login']." a gagné!";
                         }
                         $gameRepository->updateMessages($data['game']['id'],json_encode($log));
