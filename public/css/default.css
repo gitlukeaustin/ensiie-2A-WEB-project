@@ -21,14 +21,11 @@ nav > .nav-block{
     padding-top: 20px;
     margin: auto;
     border-bottom: 2px solid #ffffff4f;
+    display: flex;
+    justify-content: space-between;
 }
 
-
-nav > .nav-block > a:nth-child(1) {
-	float: left;
-}
-
-nav > .nav-block > a {
+nav > .nav-block > div > a {
     margin: 0 18px 0 18px;
     color: #ffffff;
     text-transform: uppercase;
@@ -37,13 +34,11 @@ nav > .nav-block > a {
     transition: all 0.3s;
     top: 2px;
     position: relative;
+    font-size: 24px;
     z-index: 200;
 }
-nav > .nav-block > a {
-	font-size: 24px;
-}
 
-nav > .nav-block > a:hover {
+nav > .nav-block > div > a:hover {
 	text-decoration:none;
     color: #5fa2e8;
     transition: all 0.3s;

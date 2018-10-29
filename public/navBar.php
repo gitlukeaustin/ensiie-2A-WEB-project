@@ -5,16 +5,20 @@
 <header>
 	<nav>	
 		<div class="nav-block">
-			<a href="index.php"><p class='title'>Our game</p></a>
+			<div>
+				<a href="index.php"><span class='title'>Our game</span></a>
+			</div>
+			<div>
 			<a href="index.php">Accueil</a>
-			<a href="jeu.php">Jeu</a>
-			<a href="index.php">Guide</a>
-			<a href="leaderBoard.php">Classement</a>
-			<?php
-				if(isset($_SESSION["login"]) && isset($_SESSION["uniqid"])) {
-				 echo '<a href="compte.php">'.$_SESSION["login"].'</a>';
-				}
-			?>
+				<a href="jeu.php">Jeu</a>
+				<a href="index.php">Guide</a>
+				<a href="leaderBoard.php">Classement</a>
+				<?php
+					if(isset($_SESSION["login"]) && isset($_SESSION["uniqid"])) {
+					 echo '<a href="compte.php">'.$_SESSION["login"].'</a>';
+					}
+				?>
+			</div>
 		</div>		
     </nav> 
     <br>
