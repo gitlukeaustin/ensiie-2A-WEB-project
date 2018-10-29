@@ -18,9 +18,6 @@ require "navBar.php";
 
 if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['uniqid']) && $_SESSION['uniqid'] != null)
 	$user = $userRepository->findOneByLogin($_SESSION['login']);
-	
-else 
-	var_dump("error");
 
 
 if(isset($_GET['status'])){
