@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <title>La page sur laquelle on a le bouton "jouer"</title>
+        <script>
+
+           /** coté serveur on aurait un peu un:
+
+
+            *qqpart sur le serveur sont stockées ces variables:*
+
+            def playerWaiting = null;
+            def activeGames = [];
+
+
+
+            *un joueur clique sur le bouton 'Jouer' sur son navigateur favori: ca appelle la fonction matchmaking du serveur*
+
+            function matchmaking(playerInfos) {
+                if (playerWaiting == null) {
+                    playerWaiting = playerInfos;
+                    redirectToWaitingPage(infosJoueur);
+                    return;
+                }
+                activeGames.add(new Game(playerWaiting, playerInfo));
+                activeGames[-1].start();
+                redirectToPlayingPage(playerInfos);
+                redirectToPlayingPage(playerWaiting);
+                playerWaiting = null;
+                }
+            }
+            */
+
+            const URL_PLAYING = "jeu.php"; //todo
+            const URL_WAITING = "wait.html";
+
+            /**
+             * Redirige l'utilisateur vers une page
+             */
+            function redirect(to)
+            {
+                window.location.href = to;
+            }
+
+            /**
+             * Génère l'objet JS contenant les infos du joueur à partir du formulaire
+             */
+            function generatePlayerData()
+            {
+                alert("c");
+                var myObject = {
+                    "name" : document.getElementById("player-name").value
+                }
+                console.debug("PlayerData: ");
+                console.debug(myObject);
+                return myObject;
+            }
+
+            function matchmake()
+            {
+                /*
+                En admettant que le serveur renvoie une réponse du type
+                {
+                    "status" : "waiting"
+                }
+                ou
+                {
+                    "status" : "playing"
+                }
+                */
+                var req = new XMLHttpRequest();
+                req. onreadystatechange = function(event)
+                {
+                    if (this.readyState == XMLHttpRequest.DONE)
+                    {
+                        if (this.status == 200)
+                        {
+                            console.log("Response from server: " + this.responseText);
+                            var response = JSON.parse(this.responseText);
+                            var status = response["status"];
+                            if (status === "waiting")
+                                redirect(URL_WAITING);
+                            else if (status === "playing")
+                                redirect(URL_PLAYING);
+                            else
+                                console.error("Received unexpected status: " + status);
+                        }
+                        else
+                        {
+                            console.error("Server error, expected status 200, got " + this.status);
+                        }
+                    }
+                }
+                req.open("POST", "matchmake.php", true); //todo
+                // On génère un object JavaScript qui contient les données du joueur
+                var playerData = generatePlayerData();
+                req.send(JSON.stringify(playerData));
+            }
+        </script>
+    </head>
+    <body>
+        <form onSubmit="matchmake(); return false;">
+            <input type="name" id="player-name" name="player-name" placeholder="Name" />
+            <button type="submit" value="matchmake" name="action">Play</button>
+        </form>
+    </body>
+</html>
