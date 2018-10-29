@@ -4,7 +4,8 @@ CREATE TABLE "User" (
     password VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
     isAdmin boolean NOT NULL,
-    ects integer NOT NULL
+    ects integer NOT NULL,
+    isActif boolean NOT NULL
 );
 
 CREATE TABLE Game (
@@ -52,18 +53,18 @@ INSERT INTO Unit(id,name,id_cat,description) VALUES(10,'Prof2',4,'Professeur Des
 
 
 
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('kevin','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('toto','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('paul','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('dragodia','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('luke','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('omar','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('immo','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('boulet','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('michou','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('titi','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('lili','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0);
-INSERT INTO "User"(login,password,email,isAdmin,ects) VALUES('bibicheDu28','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('kevin','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('toto','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('paul','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('dragodia','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('luke','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('omar','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('immo','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('boulet','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('michou','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('titi','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('lili','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','test@gmail.com',true,0,true);
+INSERT INTO "User"(login,password,email,isAdmin,ects, isActif) VALUES('bibicheDu28','$2y$10$m/tJzLfW/fMpA/fmeVSyuOFHOmsC7eLnLA3WmcHDQ76Cy9kV2L14i','toto@gmail.com',true,0,true);
 
 
 INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(1,2,'terminé',2,50);

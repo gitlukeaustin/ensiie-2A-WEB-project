@@ -34,6 +34,11 @@ class User
     private $isAdmin;
 
     /**
+     * @var boolean
+     */
+    private $isActif;
+
+    /**
      * @return int
      */
     public function getId()
@@ -138,6 +143,24 @@ class User
     public function setIsAdmin($isAdmin)
     {
         $this->isAdmin = $isAdmin;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActif()
+    {
+        return $this->isActif;
+    }
+
+    /**
+     * @param bool $isActif
+     * @return User
+     */
+    public function setIsActif($isActif)
+    {
+        $this->isActif = $isActif;
         return $this;
     }
 }

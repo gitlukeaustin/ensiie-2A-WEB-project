@@ -40,7 +40,8 @@ class UserRepository
                 ->setLogin($row->login)
                 ->setPassword($row->password)
                 ->setEcts($row->ects)
-                ->setIsAdmin($row->isAdmin);
+                ->setIsAdmin($row->isAdmin)
+                ->setIsActif($row->isActif);
 
             $users[] = $user;
         }
@@ -86,12 +87,13 @@ class UserRepository
      */
     public function create(User $user){
         $userArray = $this->hydrator->extract($user);
-        $statement = $this->connection->prepare('INSERT INTO "User"(login, password, email, isadmin, ects) values(:login, :password, :email, :isadmin, :ects)');
+        $statement = $this->connection->prepare('INSERT INTO "User"(login, password, email, isadmin, ects, isactif) values(:login, :password, :email, :isadmin, :ects, :isactif)');
         $statement->bindParam(':login',$userArray['login']);
         $statement->bindParam(':password',$userArray['password']);
         $statement->bindParam(':email',$userArray['email']);
         $statement->bindParam(':isadmin',$userArray['isAdmin']);
         $statement->bindParam(':ects',$userArray['ects']);
+        $statement->bindParam(':isactif', $userArray['isActif']);
         $statement->execute();
     }
 

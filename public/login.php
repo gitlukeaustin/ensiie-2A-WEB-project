@@ -74,6 +74,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 'email' => $email ?? null,
                 'isAdmin' => 0,
                 'ects' => 0,
+                'isActif' => 1,
             ],
             'errors' => [],
         ];
