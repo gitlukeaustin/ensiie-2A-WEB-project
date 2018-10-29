@@ -16,13 +16,8 @@ require "navBar.php";
 
 
 
-if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['uniqid']) && $_SESSION['uniqid'] != null){
+if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['uniqid']) && $_SESSION['uniqid'] != null)
 	$user = $userRepository->findOneByLogin($_SESSION['login']);
-
-	if($user->isAdmin() == true)
-		header('Location: /admin.php');
-
-}
 	
 else 
 	var_dump("error");
