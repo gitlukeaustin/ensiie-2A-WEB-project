@@ -38,7 +38,7 @@ $dispatched = $front->dispatch();
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="css/jeu.css?ver=5">
+        <link rel="stylesheet" href="css/jeu.css?ver=6">
         <link rel="stylesheet" href="css/default.css">
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>

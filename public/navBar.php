@@ -6,7 +6,7 @@
 	<nav>	
 		<div class="nav-block">
 			<div>
-				<a href="index.php"><span class='title'>Our game</span></a>
+				<a href="index.php"><span class='title'>Fight for ENSIIE</span></a>
 			</div>
 			<div>
 			    <a href="index.php">Accueil</a>
