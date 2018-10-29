@@ -20,7 +20,7 @@
 				?>
                 <?php if(isset($_SESSION["login"]) && isset($_SESSION["uniqid"])) { ?>
                 <a href="login.php?disconnect">
-                    <input type="submit" class="btn btn-danger btn-mini" name="disconnect" id="disconnect" value=" "/>
+                	<img id='disconnect' width = "28px" height="28px" src='image/disconnect.png'/>                    
                 </a>
                 <?php } ?>
 			</div>
