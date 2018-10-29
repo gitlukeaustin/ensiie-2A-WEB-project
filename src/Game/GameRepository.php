@@ -155,6 +155,8 @@ class GameRepository
         }
     }
 
+
+
     public function findOtherLogin($gid,$login){
         try{
             
