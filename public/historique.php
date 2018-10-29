@@ -17,26 +17,39 @@ session_start();
 <html>
 	<head>
 	<link rel="stylesheet" href="css/histo.css"/>
+	
 	</head>
 	<body>
-		<div id='histo'>
-			<?php
-			require "navBar.php";
-			$login = $_SESSION["login"];
-			$userSession = $userRepository->findOneByLogin($login);
-			$games = $gameRepository->fetchAllByUser($userSession);
-			foreach ($games as $key => $game) { 
-				$date = $game->getCreatedAt();
-				$enemy = $userRepository->findOneById($game->getIdPlayer1() == $userSession->getId() ? $game->getIdPlayer2() : $game->getIdPlayer1());
-				$enemyName = $enemy->getLogin();
-				$isWinner = $userSession->getId() == $game->getIdWinner() ? true : false;
-				echo "<div class='histoGame ".($isWinner?"win":"loose")."'>";
-				echo "<div class='date'>Partie jouée le $date</div>";
-				echo "<div class='players '>$login <img src='image/vs.png' height='40px' width='40px'/> $enemyName</div>";
+	<?php require "navBar.php"; ?>
+		<div class="container">
+			<div class="wrapper">
+				<table>
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Adversaire</th>
+							<th>Vos cartes jouées</th>
+							<th>Cartes jouées (adversaire)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						
+						$login = $_SESSION["login"];
+						$userSession = $userRepository->findOneByLogin($login);
+						$games = $gameRepository->fetchAllByUser($userSession);						
 
-				echo "</div>";
-			}
-			?>
+						foreach ($games as $key => $game) { 
+							$date = $game->getCreatedAt();
+							$enemy = $userRepository->findOneById($game->getIdPlayer1() == $userSession->getId() ? $game->getIdPlayer2() : $game->getIdPlayer1());
+							$enemyName = $enemy->getLogin();
+							$isWinner = $userSession->getId() == $game->getIdWinner() ? true : false;
+							echo "<tr class='".($isWinner?"win":"loose")."'><td>$date</td><td>$enemyName</td><td></td><td></td></tr>";
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
