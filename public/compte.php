@@ -28,12 +28,12 @@ else
 	var_dump("error");
 
 
-if(isset($_GET['status']))
+if(isset($_GET['status'])){
 	if($_GET['status'] == 'successModify')
 		echo "<b> Your informations are successufly modified ! </b>";
 	if($_GET['status'] == 'successDelete')
 		echo "<b> Your account has been deleted !</b>";
-
+}
 ?>
 
 
