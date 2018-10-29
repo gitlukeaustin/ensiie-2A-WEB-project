@@ -15,7 +15,10 @@
 				 echo '<a href="compte.php">'.$_SESSION["login"].'</a>';
 				}
 			?>
-		</div>		
+            <a href="login.php?disconnect">
+                <input type="submit" class="btn btn-danger btn-mini" name="disconnect" id="disconnect" value=" "/>
+            </a>
+        </div>
     </nav> 
     <br>
 </header>

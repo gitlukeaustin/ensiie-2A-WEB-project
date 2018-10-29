@@ -53,3 +53,10 @@ nav > .nav-block > a:hover {
 	font-size: 27px;
 	margin: 0;
 }
+#disconnect{
+    margin-bottom: 0.5em;
+    width: 40px;
+    height: 20px;
+    text-align: center;
+    text-align: center;
+}
