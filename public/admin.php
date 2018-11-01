@@ -81,25 +81,26 @@ if(isset($_GET['status'])){
 					Ects : &nbsp; <input type="text" id="ects" class="fadeIn third" style="width: 200px;" name="ects"  value="<? echo $user->getEcts() ?>" placeholder="ects" disabled />
 					</b>
 					<br /><br />
-					<table>
-						<tr>
-							<td>
+					<!--<table>-->
+						<!--<tr>-->
+							<!--<td>-->
+							<div class="flexrow">
 								<form method="POST" action="delete.php">  
 									<input type="hidden" name='user_id' value='<? echo $user->getId() ?>' >
 									<input type="submit" class="fadeIn fourth" value="delete" style="width: 100px" >
 								</form>
-							</td>
-							<td>
-								<form method="POST" action="compte.php">
+							<!--</td>-->
+							<!--<td>-->
+								<form method="POST" class="flexrow" action="compte.php">
 									<input type="hidden" id='user_id' value='<?php echo $user->getId() ?>' >
 									<input type="button" id='modify' onclick="enableInputs()" class="fadeIn fourth" value="modify" style="width: 100px" >
 									<input type="button" id='validate' onclick="validateInputs()" class="fadeIn fourth" value="validate" style="width: 100px; display: none;" >
 									<input type="button" id='historique' class="fadeIn fourth" value="Historique" onclick="display_historique()" style="width: 100px;" >
 								</form>
-								
-							</td>
-						</tr>
-					</table>
+			</div>
+							<!--</td>-->
+						<!--</tr>-->
+					<!--</table>-->
 
 			<?php } ?>
 

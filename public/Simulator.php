@@ -4,14 +4,19 @@
 class Simulator {
 	private $log;
 	private $winner;
+	private $animations;
+	private $index;
 
 	public function __construct(){
 		$this->log = [];
 		$this->winner = NULL;
+		$this->animations = [];
+		$this->index = [];
 	}
 
 	public function simulate($cards1,$cards2,$j1,$j2){
 		$attack = 0;
+		$this->index = [$j1['login'] => -1, $j2['login'] => -1];
 		$c1 = $this->drawCard($cards1,$j1);
 		$c2 = $this->drawCard($cards2,$j2);
 		$i = 20; 
@@ -31,7 +36,7 @@ class Simulator {
 			}
 			else{
 				$this->log[] = $c1['name']." [".$j1['login']."] a:".$c1['attack']."/d:".$c1['defence']." &#9876;  ".$c2['name']."  [".$j2['login']."] a:".$c2['attack']."/d:".$c2['defence'];
-
+				$this->animations[] = [];
 				$attack = $this->confront($c1,$c2,$j1,$j2);
 				$c2['defence'] = $c2['defence'] - $attack;
 				
@@ -41,10 +46,12 @@ class Simulator {
 				
 				if($c1['defence'] <= 0){
 					$this->log[] = "La ".$c1['name']." de ".$j1['login']." est tombé!";
+					$this->animations[] = [$j1['login'],$this->index[$j1['login']],'fade'];
 					$c1 = $this->drawCard($cards1,$j1);
 				}
 				if($c2['defence'] <= 0){
 					$this->log[] = "La ".$c2['name']." de ".$j2['login']." est tombé!";
+					$this->animations[] = [$j2['login'],$this->index[$j2['login']],'fade'];
 				 	$c2 = $this->drawCard($cards2,$j2);
 				}
 			}
@@ -54,13 +61,22 @@ class Simulator {
 	}
 	
 	private function drawCard(& $c, $j) {// passage par reference
-		$draw = array_shift($c);
 		$def = 0;
-		while($draw != NULL && ($draw['attack']??0) == 0){
-			$def += $draw['defence'];
-			$this->log[] = $j['login']." a posé un ".$draw['name']." (+$def défence)!";
+		do{
 			$draw = array_shift($c);
-		}
+			if($draw != NULL){
+				$this->index[$j['login']] = $this->index[$j['login']] + 1;
+				$this->animations[] = [$j['login'],$this->index[$j['login']],'float'];
+				
+				if(($draw['attack']??0) == 0){
+					$def += $draw['defence'];
+					$this->log[] = $j['login']." a posé un ".$draw['name']." (+$def défence)!";
+				}else{
+					$this->log[] = "";
+				}
+			}
+		}while($draw != NULL && ($draw['attack']??0) == 0);
+
 		if($draw != NULL) $draw['defence'] = $draw['defence'] + $def;
 		return $draw;
 	}
@@ -68,11 +84,10 @@ class Simulator {
 	private function confront($attackCard,$defenceCard,$attacker,$defender){
 		if(rand(0,1) > $attackCard['chance']){
 			$this->log[] = "L'attaque du ".$attackCard['name']." de ".$attacker['login']." a échoué!";
+			$this->animations[] = [];
 			return 0;
 		}
 		else{
-			//$this->log[] = $attackCard['name']." de ".$attacker['login']." a attaqué un(e) ".$defenceCard['name']." pour ".$attackCard['attack']." points!";
-			//$this->log[] = "Vie de ".$defenceCard['name']." : ".($defenceCard['defence'] - $attackCard['attack']); 
 			return $attackCard['attack'];	
 		}
 	}
@@ -89,5 +104,12 @@ class Simulator {
      */
 	public function  getLog(){
 		return $this->log;
+	}
+
+	 /**
+     * @return array
+     */
+	public function  getAnimations(){
+		return $this->animations;
 	}
 }

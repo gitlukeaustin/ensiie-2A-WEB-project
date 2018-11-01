@@ -154,7 +154,7 @@ class GameRepository
             echo $e;
         }
     }
-
+ 
 
 
     public function findOtherLogin($gid,$login){

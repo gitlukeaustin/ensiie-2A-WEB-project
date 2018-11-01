@@ -77,22 +77,26 @@ var app =new Vue({
      }
   },
   methods: {
-    logDelay: function(data,i) {
+    applyClass: function(animation){
+      if(animation !== undefined && animation.length > 0){
+        if(animation[0] == this.adv_login){
+          document.getElementById('adv_cards').childNodes[animation[1]].classList.add(animation[2]+'down');
+        }
+        else{
+          document.getElementById('placed_cards').childNodes[animation[1]].classList.add(animation[2]);
+        }
+      }
+    },
+    logDelay: function(data,i,animations) {
       self = this;
-     
-      if(!this.advanceLog){
-        self.timeoutId = setTimeout(function() {
-          self.log += data[i] + "</br>"; 
-          if(i < data.length - 1)
-            self.logDelay(data,i+1);  
-        }, 1100);
-      }
-      else{
-        this.advanceLog = false;
+      self.timeoutId = setTimeout(function() {
         self.log += data[i] + "</br>"; 
-        if(i < data.length - 1)
-          self.logDelay(data,i+1); 
-      }
+        if(i < data.length - 1){
+          self.applyClass(animations[i]);
+          self.logDelay(data,i+1,animations);  
+        }
+      }, 1100);
+      
       document.getElementById('log').scroll({
         top: document.getElementById("log").scrollHeight,
         behavior: "smooth"
@@ -115,10 +119,10 @@ var app =new Vue({
         self = this;
         if(!response.data.connected){
           setTimeout(function(){
-            if(tries > 0){
+            if(tries > 0 && !self.locked){
               self.pingServer(tries-1);
-            }else{
-              self.log += "Aucun joueur trouvé. Veuillez rafraîchir la page" + "</br>";
+            }else if(!self.locked){
+                self.log += "Aucun joueur trouvé. Veuillez rafraîchir la page" + "</br>";
             }
             
           },1000);
@@ -154,8 +158,8 @@ var app =new Vue({
           
           if(this.connected){
             if(response.data.resolved){
-              this.adv = response.data.adv;
-              this.logDelay(response.data.log,0);
+              this.adv = response.data.adv_cards
+              this.logDelay(response.data.log,0,response.data.animations);
             }
             else{
               this.log += "En attente des choix de "+this.adv_login+"</br>";
@@ -163,8 +167,9 @@ var app =new Vue({
             }
           }
           else{
-            this.adv = response.data.adv;
-            this.logDelay(response.data.log,0);
+            this.adv_login = response.data.adv;
+            this.adv = response.data.adv_cards;
+            this.logDelay(response.data.log,0,response.data.animations);
           }
           
         })
@@ -186,7 +191,7 @@ var app =new Vue({
             console.log(cards);
             console.log(cards[this.adv_login]);
             this.adv = cards[this.adv_login];
-            this.logDelay(response.data.log,0);
+            this.logDelay(response.data.log,0,response.data.animations);
           }
           else{
             setTimeout(function(){

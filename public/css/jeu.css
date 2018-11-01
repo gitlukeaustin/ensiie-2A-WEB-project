@@ -82,6 +82,30 @@ body {
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
 }
 
+.float {
+  transition: transform 0.25s;
+  transform: translate(0,-8px);
+  -webkit-transform: translate(0,-8px); /** Chrome & Safari **/
+}
+
+.fade {
+  transition: opacity 0.5s;
+  -webkit-transform: opacity 0.5s; /** Chrome & Safari **/
+  opacity: 0;
+}
+
+.floatdown {
+  transition: transform 0.25s;
+  transform: translate(0,+8px);
+  -webkit-transform: translate(0,+8px); /** Chrome & Safari **/
+}
+
+.fadedown {
+  transition: opacity 0.5s;
+  -webkit-transform: opacity 0.5s; /** Chrome & Safari **/
+  opacity: 0;
+}
+
 .card > .icon img{
   width:100%;
   height:100%;

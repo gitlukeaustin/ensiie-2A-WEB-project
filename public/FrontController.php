@@ -30,10 +30,7 @@ class FrontController
             //include(__DIR__.'../../../view/' . $this->url[1] . '/' . $this->url[2]);
             //return $controller->$actionName();
 
-            //array (size=2)
-            //'get' => 
-            //  array (size=1)
-            //    'action' => string 'fetch_units' (length=11)
+        
 
             if (isset($this->params['get']['action'])) {
                 if ($this->params['get']['action'] == 'fetch_units') {
@@ -86,7 +83,7 @@ class FrontController
                         $log[] = "Le joueur ".$winner['login']." a gagné!";
                     }
                     
-                    echo json_encode(['data' => $data['selected'], 'log' => $log, 'adv' => $cartesRobot]);
+                    echo json_encode(['data' => $data['selected'], 'animations' => $sim->getAnimations() ,'log' => $log, 'adv_cards' => $cartesRobot, 'adv' => $robot['login']]);
                     return true;
                 
                 } 
@@ -125,12 +122,12 @@ class FrontController
 
                             $log[] = "Le joueur ".$winner['login']." a gagné!";
                         }
-                        $gameRepository->updateMessages($data['game']['id'],json_encode($log));
+                        $gameRepository->updateMessages($data['game']['id'],json_encode(['log' => $log, 'animations' => $sim->getAnimations()]));
                         
                         $gameRepository->updateCards($data['game']['id'],json_encode($cardsEv));
 
                         
-                        echo json_encode(['data' => $data['selected'], 'log' => $log, 'resolved' => true, 'adv' => $cardArray[$data['adv']]]);
+                        echo json_encode(['data' => $data['selected'], 'log' => $log, 'animations' => $sim->getAnimations(), 'resolved' => true, 'adv_cards' => $cardArray[$data['adv']]]);
 
                     }
                     return true;
@@ -178,13 +175,13 @@ class FrontController
                     $data = json_decode($this->params['post']['data'],true);
                     
                     $game = $gameRepository->findGameById($data['game']['id']);
-                    $log = json_decode($game->getMessages());
+                    $log = json_decode($game->getMessages(),true);
                     $r = true;
                     if($log == NULL){
                         $r = false;
                     }
                     
-                    echo json_encode(['game' => $gameHydrator->extract($game), 'log' => $log, 'resolved' => $r]);
+                    echo json_encode(['game' => $gameHydrator->extract($game), 'log' => $log['log'], 'animations' => $log['animations'], 'resolved' => $r]);
                     return true;
                 }
                 return false;
