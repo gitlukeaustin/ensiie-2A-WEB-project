@@ -186,7 +186,18 @@ class GameRepository
         }
     }
 
-
+    public function findWinnerLogin($gid){
+        try{   
+            $q = $this->connection->prepare('SELECT u.login FROM "User" u WHERE u.id = (SELECT g.id_winner FROM Game g WHERE g.id = :gid)');
+            $q->bindParam(':gid',$gid);
+            $q->execute();
+            $l = $q->fetchColumn();
+            return $l;
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
 
 /*CREATE TABLE Game (
     id SERIAL PRIMARY KEY,

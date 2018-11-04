@@ -8,17 +8,8 @@ var app =new Vue({
       ecole1:"image/ecole1.png",
       ecole2:"image/ecole2.png"
    },
-  	categories: [
-    	//{ id:1, type: "Mur", attack:0, defence:8, cost:8, chance:0.1},
-      //{ id:2, type: "Soldat", attack:5, defence:1, cost:4, chance:0.15}
-     ],
-     units: [
-     //{ id_cat:1, name: "Mur A", atck_bonus:0, def_bonus:0, chance_bonus:0, description:"Un mur"},
-     //{ id_cat:1, name: "Mur B", atck_bonus:0, def_bonus:0, chance_bonus:0, description:"Un mur"},
-     //{ id_cat:2, name: "Soldat A", atck_bonus:0, def_bonus:0, chance_bonus:0, description:"Un Soldat"},
-     //{ id_cat:2, name: "Soldat B", atck_bonus:0, def_bonus:0, chance_bonus:0, description:"Un Soldat"}
-     ],
-     
+  	categories: [],
+    units: [],
     log: "en attente de joueurs...</br>",
     coins:50,
     selected: [],
@@ -77,9 +68,59 @@ var app =new Vue({
      }
   },
   methods: {
+    showHit(login,index,number){
+      if(login == this.adv_login){
+        icon = document.getElementById('adv_cards').childNodes[index];
+      }
+      else{
+        icon = document.getElementById('placed_cards').childNodes[index];
+      }
+      hit = icon.childNodes[0];
+      hit.innerHTML = number;
+      left = icon.offsetLeft;
+      hit.classList.remove('faded');
+      hit.classList.add('fadeIn');
+      hit.classList.add('floatdown');
+      setTimeout(function(){
+        hit.classList.remove('fadeIn');
+        hit.classList.add('fadeSlow');},600);
+
+    },
+    showAttack(login,index,login_def,index_def){
+      if(login == this.adv_login){
+        icon = document.getElementById('adv_cards').childNodes[index];
+        icon_adv = document.getElementById('placed_cards').childNodes[index_def];
+        tp = +28;
+      }
+      else{
+        icon = document.getElementById('placed_cards').childNodes[index];
+        icon_adv = document.getElementById('adv_cards').childNodes[index_def];
+        tp = -28;
+      }
+      attack = icon.childNodes[2];
+      console.log(attack);
+      left = icon_adv.offsetLeft - icon.offsetLeft;
+      console.log(left);
+      attack.classList.remove('faded');
+      attack.classList.add('fadeIn');
+      attack.setAttribute("style", "transition: transform 0.46s; transform: translate("+left+"px,"+tp+"px)");
+      setTimeout(function(){
+        attack.classList.remove('fadeIn');
+        attack.classList.add('fade');
+        setTimeout(function(){        
+          attack.removeAttribute("style");
+        },640);
+      },560);
+    },
     applyClass: function(animation){
       if(animation !== undefined && animation.length > 0){
-        if(animation[0] == this.adv_login){
+        if(animation.length == 4){
+          this.showHit(animation[0],animation[1],animation[3]);
+        }
+        else if(animation.length == 5){
+          this.showAttack(animation[0],animation[1],animation[3],animation[4]);
+        }
+        else if(animation[0] == this.adv_login){
           document.getElementById('adv_cards').childNodes[animation[1]].classList.add(animation[2]+'down');
         }
         else{
@@ -87,13 +128,30 @@ var app =new Vue({
         }
       }
     },
-    logDelay: function(data,i,animations) {
+    showWinner: function(winner){
+      if(winner == this.adv_login){
+        castle = document.getElementById('chateau_adversaire');
+      }
+      else{
+        castle = document.getElementById('chateau_joueur');
+      }
+      image = castle.childNodes[0];
+      console.log(image);
+      image.classList.remove('faded');
+      image.classList.add('fadeIn');
+      image.setAttribute("style", "transition: transform 0.46s; transform: translateY(-30px)");
+    },
+    logDelay: function(data,i) {
       self = this;
       self.timeoutId = setTimeout(function() {
-        self.log += data[i] + "</br>"; 
-        if(i < data.length - 1){
-          self.applyClass(animations[i]);
-          self.logDelay(data,i+1,animations);  
+        if(data.log[i].length > 0)
+          self.log += data.log[i] + "</br>"; 
+        if(i < data.log.length - 1){
+          self.applyClass(data.animations[i]);
+          self.logDelay(data,i+1);  
+        }
+        else{
+          self.showWinner(data.winner);
         }
       }, 1100);
       
@@ -159,7 +217,7 @@ var app =new Vue({
           if(this.connected){
             if(response.data.resolved){
               this.adv = response.data.adv_cards
-              this.logDelay(response.data.log,0,response.data.animations);
+              this.logDelay(response.data,0);
             }
             else{
               this.log += "En attente des choix de "+this.adv_login+"</br>";
@@ -169,7 +227,7 @@ var app =new Vue({
           else{
             this.adv_login = response.data.adv;
             this.adv = response.data.adv_cards;
-            this.logDelay(response.data.log,0,response.data.animations);
+            this.logDelay(response.data,0);
           }
           
         })
@@ -191,7 +249,7 @@ var app =new Vue({
             console.log(cards);
             console.log(cards[this.adv_login]);
             this.adv = cards[this.adv_login];
-            this.logDelay(response.data.log,0,response.data.animations);
+            this.logDelay(response.data,0);
           }
           else{
             setTimeout(function(){

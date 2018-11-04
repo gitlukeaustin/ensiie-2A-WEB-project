@@ -83,7 +83,7 @@ class FrontController
                         $log[] = "Le joueur ".$winner['login']." a gagné!";
                     }
                     
-                    echo json_encode(['data' => $data['selected'], 'animations' => $sim->getAnimations() ,'log' => $log, 'adv_cards' => $cartesRobot, 'adv' => $robot['login']]);
+                    echo json_encode(['data' => $data['selected'], 'animations' => $sim->getAnimations() ,'log' => $log, 'adv_cards' => $cartesRobot, 'adv' => $robot['login'], 'winner' => $sim->getWinner()['login']]);
                     return true;
                 
                 } 
@@ -127,7 +127,7 @@ class FrontController
                         $gameRepository->updateCards($data['game']['id'],json_encode($cardsEv));
 
                         
-                        echo json_encode(['data' => $data['selected'], 'log' => $log, 'animations' => $sim->getAnimations(), 'resolved' => true, 'adv_cards' => $cardArray[$data['adv']]]);
+                        echo json_encode(['data' => $data['selected'], 'log' => $log, 'animations' => $sim->getAnimations(), 'resolved' => true, 'adv_cards' => $cardArray[$data['adv']], 'winner' => $sim->getWinner()]);
 
                     }
                     return true;
@@ -180,8 +180,8 @@ class FrontController
                     if($log == NULL){
                         $r = false;
                     }
-                    
-                    echo json_encode(['game' => $gameHydrator->extract($game), 'log' => $log['log'], 'animations' => $log['animations'], 'resolved' => $r]);
+                    $winner = $gameRepository->findWinnerLogin($data['game']['id']);
+                    echo json_encode(['game' => $gameHydrator->extract($game), 'log' => $log['log'], 'animations' => $log['animations'], 'resolved' => $r, 'winner' => $winner]);
                     return true;
                 }
                 return false;

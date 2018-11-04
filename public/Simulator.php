@@ -35,11 +35,13 @@ class Simulator {
 				$this->winner = $j1;
 			}
 			else{
-				$this->log[] = $c1['name']." [".$j1['login']."] a:".$c1['attack']."/d:".$c1['defence']." &#9876;  ".$c2['name']."  [".$j2['login']."] a:".$c2['attack']."/d:".$c2['defence'];
-				$this->animations[] = [];
+				$this->log[] = $c1['name']." [".$j1['login']."] &#10084; :".$c1['defence']." &#9876;  ".$c2['name']."  [".$j2['login']."] &#10084; :".$c2['defence'];
+				$this->animations[] = [$j1['login'],$this->index[$j1['login']],null,$j2['login'],$this->index[$j2['login']]];
 				$attack = $this->confront($c1,$c2,$j1,$j2);
 				$c2['defence'] = $c2['defence'] - $attack;
 				
+				$this->log[] = [];
+				$this->animations[] = [$j2['login'],$this->index[$j2['login']],null,$j1['login'],$this->index[$j1['login']]];
 				$attack = $this->confront($c2,$c1,$j2,$j1);
 				 
 				$c1['defence'] = $c1['defence'] - $attack;
@@ -88,6 +90,8 @@ class Simulator {
 			return 0;
 		}
 		else{
+			$this->log[] = "";
+			$this->animations[] = [$defender['login'],$this->index[$defender['login']],NULL,'-'.$attackCard['attack']];
 			return $attackCard['attack'];	
 		}
 	}
