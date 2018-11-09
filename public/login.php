@@ -16,12 +16,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if(isset($_GET['disconnect'])){
-    session_destroy();
-    session_start();
-    header('Location: http://localhost:8080');
-    exit();
-}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
@@ -99,7 +93,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
 
             if(count($view['errors']) === 0){
-                header('Location: http://localhost:8080/jeu.php');
+                header('Location: http://localhost:8080/jeu');
             }
 
             print_r($view['errors']);

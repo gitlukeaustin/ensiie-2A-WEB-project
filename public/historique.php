@@ -11,16 +11,14 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 $userRepository = new \User\UserRepository($connection);
 $gameRepository = new \Game\GameRepository($connection);
 @ob_start();
-session_start();
+if (session_status() == PHP_SESSION_NONE) session_start();
+
 ?>
 
 <html>
-	<head>
-	<link rel="stylesheet" href="css/histo.css"/>
-	
-	</head>
-	<body>
 	<?php require "navBar.php"; ?>
+	<body>
+
 		<div class="container">
 			<div class="wrapper">
 				<table>

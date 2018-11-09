@@ -9,7 +9,7 @@
             "Category\\": "src/Category/",
             "Game\\": "src/Game/"
         },
-        "files": ["public/FrontController.php","public/Simulator.php"]
+        "files": ["public/FrontController.php","public/Simulator.php","public/GameController.php"]
     },
     "autoload-dev": {
         "psr-4": {

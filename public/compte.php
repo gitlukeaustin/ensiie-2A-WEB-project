@@ -9,11 +9,7 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 $userRepository = new UserRepository($connection);
 $userHydrator = new \User\UserHydrator();
 @ob_start();
-session_start();
-require "navBar.php";
-
-
-
+if (session_status() == PHP_SESSION_NONE) session_start();
 
 
 if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['uniqid']) && $_SESSION['uniqid'] != null)
@@ -49,12 +45,12 @@ if(isset($_GET['status'])){
 	}
 
 	function display_historique(){
-		window.location.href="historique.php";
+		window.location.href="/historique";
 	}
 
 </script>
 <html>
-<link href="../css/compte.css" rel="stylesheet"></link>
+<?php require "navBar.php";?>
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
@@ -79,13 +75,13 @@ if(isset($_GET['status'])){
 	        	<table>
 	        		<tr>
 	        			<td>
-	        				<form method="POST" action="delete.php">  
+	        				<form method="POST" action="/delete">  
 				        		<input type="hidden" name='user_id' value='<? echo $user->getId() ?>' >
 				        		<input type="submit" class="fadeIn fourth" value="delete" style="width: 100px" >
 				        	</form>
 	        			</td>
 	        			<td>
-	        				<form method="POST" action="compte.php">
+	        				<form method="POST" action="/compte">
 				        		<input type="hidden" id='user_id' value='<?php echo $user->getId() ?>' >
 					        	<input type="button" id='modify' onclick="enableInputs()" class="fadeIn fourth" value="modify" style="width: 100px" >
 					        	<input type="button" id='validate' onclick="validateInputs()" class="fadeIn fourth" value="validate" style="width: 100px; display: none;" >

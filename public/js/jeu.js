@@ -98,9 +98,7 @@ var app =new Vue({
         tp = -28;
       }
       attack = icon.childNodes[2];
-      console.log(attack);
       left = icon_adv.offsetLeft - icon.offsetLeft;
-      console.log(left);
       attack.classList.remove('faded');
       attack.classList.add('fadeIn');
       attack.setAttribute("style", "transition: transform 0.46s; transform: translate("+left+"px,"+tp+"px)");
@@ -150,7 +148,7 @@ var app =new Vue({
           self.applyClass(data.animations[i]);
           self.logDelay(data,i+1);  
         }
-        else{
+        else if(data.winner != null){
           self.showWinner(data.winner);
         }
       }, 1100);
@@ -161,7 +159,6 @@ var app =new Vue({
       });
     },
     cancelTimeout: function() {
-      console.log(this.advanceLog);
       this.advanceLog = true;
     },
     pingServer(tries){
