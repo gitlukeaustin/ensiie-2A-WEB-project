@@ -1,0 +1,46 @@
+#container {
+	margin: 5%;
+	border: 1px solid black;
+	border-radius: 5px;
+	background : rgba(10,106,203,0.5);
+}
+
+#container > *{
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+h3 {
+	font-weight: 600;
+	font-family: 'Titillium Web', sans-serif;
+	position: relative;
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+	font-size: 22px;
+	line-height: 40px;
+	color: #355681;
+	text-transform: uppercase;
+	border-bottom: 1px solid rgba(53,86,126,0.3);
+}
+
+p {
+	text-align: justify;
+	margin: 1%;
+}
+
+.container2 {
+	display: flex;
+	justify-content: space-around;
+}
+
+#gold {
+	color: yellow;
+}
+#atk {
+	color: red;
+}
+#hp {
+	color: green;
+}
+#rates {
+	color: blue;
+}
