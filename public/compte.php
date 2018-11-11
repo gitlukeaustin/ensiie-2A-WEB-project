@@ -16,12 +16,7 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 	$user = $userRepository->findOneByLogin($_SESSION['login']);
 
 
-if(isset($_GET['status'])){
-	if($_GET['status'] == 'successModify')
-		echo "<b> Your informations are successufly modified ! </b>";
-	if($_GET['status'] == 'successDelete')
-		echo "<b> Your account has been deleted !</b>";
-}
+
 ?>
 
 
@@ -49,12 +44,11 @@ if(isset($_GET['status'])){
 	}
 
 </script>
-<html>
-<?php require "navBar.php";?>
+
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
-
+		<?php echo $log??'' ?>
         <!-- Icon -->
         <br />
 
@@ -98,4 +92,4 @@ if(isset($_GET['status'])){
 
     </div>
 </div>
-</html>
+

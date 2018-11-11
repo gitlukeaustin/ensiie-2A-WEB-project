@@ -26,6 +26,6 @@ if(isset($id) && isset($login) && isset($email) && isset($ects)){
 
 }
 
-header('Location: /compte.php?status=successModify');
+header('Location: /compte/successModify');
 
 ?>

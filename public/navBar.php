@@ -1,4 +1,6 @@
+
 <head>
+	<base href="/">
 	<link href='https://fonts.googleapis.com/css?family=Eater' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Frijole' rel='stylesheet' type='text/css'>
@@ -10,7 +12,7 @@
 	<!-- production version, optimized for size and speed
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
 	
-	<link rel="stylesheet" href="css/default.css">
+	<link rel="stylesheet" href="../css/default.css">
 
 	<?php foreach($headers??[] as $src){ echo $src; }?>
 
