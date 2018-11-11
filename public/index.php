@@ -33,7 +33,7 @@ if(isset($_SESSION['uniqid']) && isset($_SESSION['login'])){
     echo '<body></html>';
 }
 else{
-    readfile("html/login.html");
+    readfile("html/login.php");
 }
 */
 

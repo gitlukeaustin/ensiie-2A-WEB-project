@@ -88,7 +88,9 @@ class FrontController
             session_start();
             $this->default();
         }
-        include 'login.php';
+        else {
+            include 'login.php';
+        }
     }
 
     public function default(){
@@ -96,7 +98,7 @@ class FrontController
             $this->jeu();
         }
         else{            
-            readfile('html/login.html');
+            require 'html/login.php';
         }
     }
 
