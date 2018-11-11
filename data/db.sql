@@ -78,3 +78,43 @@ INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(4,7,'terminé',4,50);
 INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(5,8,'terminé',5,50);
 INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(10,11,'terminé',11,50);
 INSERT INTO Game(id_j1,id_j2,status,id_winner,po) VALUES(11,12,'terminé',11,50);
+
+CREATE OR REPLACE FUNCTION find_game(idj1 INTEGER) 
+RETURNS TABLE (
+   id integer,
+   createdAt date,
+   id_j1 integer,
+   id_j2 integer,
+   status VARCHAR,
+   cards JSON,
+   messages JSON,
+   id_winner integer ,
+   po integer
+)
+AS $$
+DECLARE
+    gid integer;
+BEGIN
+    DELETE FROM Game g WHERE g.id_j1 = idj1 AND g.id_j2 IS NULL;
+
+
+    SELECT g.id INTO gid FROM Game g WHERE g.id_j2 IS NULL LIMIT 1 FOR UPDATE;
+    IF gid is NULL THEN
+        INSERT INTO Game (id_j1,status,po) values(idj1, ' ', 50 );
+        SELECT g.id INTO gid FROM Game g WHERE g.id_j1 = idj1 AND g.id_j2 IS NULL;
+    ELSE
+        UPDATE Game SET id_j2 = idj1 WHERE Game.id = gid;
+    END IF;
+    RETURN QUERY SELECT 
+    cast(g.id as integer),
+    g.createdAt,
+    g.id_j1,
+    g.id_j2,
+    g.status,
+    g.cards,
+    g.messages,
+    g.id_winner,
+    g.po  
+    FROM Game g WHERE g.id = gid;
+END;
+$$ LANGUAGE plpgsql;

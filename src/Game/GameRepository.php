@@ -64,41 +64,17 @@ class GameRepository
     }
 
     public function findPlayer($j){
-        $q = $this->connection->prepare('DELETE FROM Game WHERE id_j1 = :idj1 AND id_j2 IS NULL');
+        $q = $this->connection->prepare('SELECT * FROM find_game(:idj1)');
         $q->bindParam(':idj1',$j['id']);
         $q->execute();
         
-        $q= $this->connection->query('SELECT * FROM Game WHERE id_j2 IS NULL LIMIT 1');
         $rows = $q->fetchAll();
         $newGame = null;
-
-        if($q->rowCount() == 0){
-            $statement = $this->connection->prepare('INSERT INTO Game (id_j1,status,po) values(:id_j1, \' \', 50 )');
-            $statement->bindParam(':id_j1',$j['id']);
-            $statement->execute();
-
-            $statement = $this->connection->prepare('SELECT * FROM Game WHERE id_j1 = :idj1 AND id_j2 IS NULL');
-            $statement->bindParam(':idj1', $j['id']);
-            $statement->execute();
-    
-            $rows = $statement->fetchAll();
-         
-            foreach ($rows as $row) {
-                $newgame = new \Game\Game();
-                $game = $this->hydrator->hydrate($row,clone $newgame);
-            }
-        }else{
-            foreach ($rows as $row) {
-                $newgame = new \Game\Game();
-                $game = $this->hydrator->hydrate($row,clone $newgame);
-            }
-            $statement = $this->connection->prepare('UPDATE Game SET id_j2 = :idj2 WHERE id = :idParam');
-            $statement->bindParam(':idj2',$j['id']);
-            $gid = $game->getId();
-            $statement->bindParam(':idParam',$gid);
-            $statement->execute();
+        foreach ($rows as $row) {
+            $newgame = new \Game\Game();
+            $game = $this->hydrator->hydrate($row,clone $newgame);
         }
-
+        
         return $game;
     }
 
@@ -165,10 +141,6 @@ class GameRepository
             $q->bindParam(':gid',$gid);
             $q->execute();
             $login = '';
-            /*$fetch = $q->fetchAll(); 
-            foreach($fetch as $f){
-                $login = $f;
-            }*/
             $l = $q->fetchColumn();
             if(strcmp($l,$_SESSION['login']) == 0){
                 
@@ -199,17 +171,5 @@ class GameRepository
         }
     }
 
-/*CREATE TABLE Game (
-    id SERIAL PRIMARY KEY,
-    createdAt date default now(),
-    id_j1 integer REFERENCES "User"(id),
-    id_j2 integer REFERENCES "User"(id),
-    status VARCHAR NOT NULL,
-    cards VARCHAR NOT NULL,
-    messages VARCHAR NOT NULL,
-    id_winner integer REFERENCES "User"(id),
-    po integer NOT NULL
- );*/
- 
 
 }

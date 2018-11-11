@@ -141,7 +141,7 @@ class GameController
                         $connected = false;
                     }
                     else{
-                        $adv = $this->gameRepository->findOtherLogin($data['id'],$_SESSION['login']);
+                        $adv = $this->gameRepository->findOtherLogin($game->getId(),$_SESSION['login']);
                     }
                     echo json_encode(['game' => $this->gameHydrator->extract($game), 'log' => '', 'connected' => $connected,'adv' => $adv]);
                     return true;

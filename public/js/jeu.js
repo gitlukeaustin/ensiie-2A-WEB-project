@@ -53,6 +53,7 @@ var app =new Vue({
       else{
         this.adv_login = response.data.adv;
         this.connected = true;
+        this.log += "Joueur trouvé.</br>";
       }
      
     })
@@ -240,7 +241,7 @@ var app =new Vue({
         .then(response => {
           // JSON responses are automatically parsed.
           console.log(response.data);
-          
+          self = this;
           if(response.data.resolved){
             cards = JSON.parse(response.data.game.cards);
             console.log(cards);
