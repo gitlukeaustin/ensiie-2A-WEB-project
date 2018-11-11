@@ -56,10 +56,8 @@ class FrontController
     }
 
     public function guide(){
-        echo '<html>';
         require 'navBar.php';
-        echo 'Guide';
-        echo '</html>';
+        readfile("html/guide.html");
     }
 
     public function historique(){
