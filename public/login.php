@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if ($login && $password) {
             $user = $userRepository->findOneByLogin($login);
             if (!$user) {
-                $view['errors']['not_exists'] = 'Utilisateur inexistant.';
+                $view['errors'] = 'Utilisateur inexistant.';
             } else {
 
                 if (password_verify($password, $user->getPassword())) {
@@ -43,12 +43,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     $_SESSION['login'] = $login;
                     $_SESSION['user'] = $userHydrator->extract($user);
                 } else {
-                    $view['errors']['wrong_password'] = 'Le mot de passe entré n\'est pas le bon.';
+                    $view['errors'] = 'Le mot de passe entré n\'est pas le bon.';
                 }
             }
         } else {
             /* Validation dynamique en JS, ce cas ne devrait pas arriver */
-            $view['errors']['not_set'] = 'Veuillez remplir tous les champs.';
+            $view['errors'] = 'Veuillez remplir tous les champs.';
         }
     }
     else{
@@ -73,7 +73,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             $user = $userRepository->findOneByLogin($login);
             if ($user) {
-                $view['errors']['not_exists'] = 'Utilisateur déjà présent.';
+                $view['errors'] = 'Utilisateur déjà présent.';
             } else {
                 if ($password === $confirmPassword) {
                     $newUser = new \User\User();
@@ -83,20 +83,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     $_SESSION['login'] = $login;
                     $_SESSION['user'] = $userHydrator->extract($newUser);
                 } else {
-                    $view['errors']['wrong_password'] = 'Le mot de passe entré n\'est pas le bon.';
+                    $view['errors'] = 'Le mot de passe de confirmation entré n\'est pas le même.';
                 }
             }
     }
     } else {
             /* Validation dynamique en JS, ce cas ne devrait pas arriver */
-            $view['errors']['not_set'] = 'Veuillez remplir tous les champs.';
+            $view['errors'] = 'Veuillez remplir tous les champs.';
         }
 
             if(count($view['errors']) === 0){
+                unset($_SESSION['errors']);
                 header('Location: http://localhost:8080/jeu');
             }
-
-            print_r($view['errors']);
-
-
-?>
+            else {
+                $_SESSION['errors'] = $view['errors'];
+                header('Location: http://localhost:8080/login');
+            }
