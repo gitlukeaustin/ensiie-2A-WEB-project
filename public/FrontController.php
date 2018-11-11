@@ -39,10 +39,10 @@ class FrontController
         }
     }
 
-    public function acceuil(){
+    public function accueil(){
         echo '<html>';
         require 'navBar.php';
-        echo 'Acceuil';
+        echo 'Accueil';
         echo '</html>';
     }
 

@@ -22,10 +22,10 @@
 	<nav>	
 		<div class="nav-block">
 			<div>
-				<a href="/acceuil"><span class='title'>Fight for ENSIIE</span></a>
+				<a href="/accueil"><span class='title'>Fight for ENSIIE</span></a>
 			</div>
 			<div>
-			    <a href="/acceuil">Accueil</a>
+			    <a href="/accueil">Accueil</a>
 				<a href="/jeu">Jeu</a>
 				<a href="/guide">Guide</a>
 				<a href="/leaderboard">Classement</a>
