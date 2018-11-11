@@ -73,12 +73,19 @@ class FrontController
     }
 
     public function compte(){
+        $log = '';
+        if(($this->url[2]??' ') == 'successModify') $log = "<b> Your informations are successufly modified ! </b>";
+        if(($this->url[2]??' ') == 'successDelete') $log = "<b> Your account has been deleted !</b>";
+        
         $headers = ['<link href="../css/compte.css" rel="stylesheet"></link>'];
+        echo "<html>";
+        include "navBar.php";
         include 'compte.php';
+        echo "</html>";
     }
 
     public function login(){
-        if($this->url[2] == 'disconnect') {
+        if(($this->url[2]??' ') == 'disconnect') {
             session_destroy();
             session_start();
             $this->default();
