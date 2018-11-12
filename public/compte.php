@@ -45,7 +45,12 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 </script>
 
 <div class="flexrow">
-	<div class="wrapper_admin fadeInDown">
+	<?php if($user->isAdmin()):?>		
+		<div class="wrapper_admin fadeInDown">
+	<?endif; 
+	if(!$user->isAdmin()): ?>
+		<div class="wrapper fadeInDown">
+	<?php endif?>
 		<div id="formContent">
 			<!-- Tabs Titles -->
 
@@ -101,7 +106,7 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 							$login = $user->getLogin();
 							$email = $user->getEmail();
 							$ects = $user->getEcts();
-							$isAdmin = $user->isAdmin();
+							$isAdmin = $user->isAdmin()==1?'Oui':'Non';
 							echo "<tr><td>$id</td><td>$login</td><td>$email</td><td>$ects</td><td>$isAdmin</td><td><a href=\"compte/delete/$id\">Supprimer</a></td></tr>";
 						}
 					?>
