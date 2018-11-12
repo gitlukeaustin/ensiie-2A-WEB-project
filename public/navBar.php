@@ -1,4 +1,3 @@
-
 <head>
 	<base href="/">
 	<link href='https://fonts.googleapis.com/css?family=Eater' rel='stylesheet' type='text/css'>
@@ -24,15 +23,19 @@
 			<div>
 				<a href="/accueil"><span class='title'>Fight for ENSIIE</span></a>
 			</div>
-			<div>
-				<?php if(($_SESSION['user']['isadmin']??false)) echo '<a href="/admin">Admin</a>'; ?>
+			<div>				
 			    <a href="/accueil">Accueil</a>
 				<a href="/jeu">Jeu</a>
 				<a href="/guide">Guide</a>
 				<a href="/leaderboard">Classement</a>
 				<?php
 					if(isset($_SESSION["login"]) && isset($_SESSION["uniqid"])) {
-					 echo '<a href="/compte">'.$_SESSION["login"].'</a>';
+						if(($_SESSION['user']['isadmin']??false)) {
+							echo '<a href="/admin">'.$_SESSION["login"].'</a>';
+						} 
+						else {
+					 		echo '<a href="/compte">'.$_SESSION["login"].'</a>';
+					 	}
 					}
 				?>
                 <?php if(isset($_SESSION["login"]) && isset($_SESSION["uniqid"])) { ?>
