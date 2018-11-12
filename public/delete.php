@@ -13,12 +13,12 @@ $userHydrator = new \User\UserHydrator();
 
 session_start();
 
-print_r($_POST);
-$userRepository->deleteUserById($_POST['id']);
+$id = isset($_POST['id'])?$_POST['id']:$_POST['user_id'];
+$userRepository->deleteUserById($id);
 
 
 $_SESSION['login'] = array();
 session_destroy();
 
-header("location: compte.php/successDelete");
+header("location: login/successDelete");
 ?>
