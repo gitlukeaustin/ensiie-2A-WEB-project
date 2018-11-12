@@ -45,7 +45,12 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 </script>
 
 <div class="flexrow">
-	<div class="wrapper_admin fadeInDown">
+	<?php if($user->isAdmin()):?>		
+		<div class="wrapper_admin fadeInDown">
+	<?endif; 
+	if(!$user->isAdmin()): ?>
+		<div class="wrapper fadeInDown">
+	<?php endif?>
 		<div id="formContent">
 			<!-- Tabs Titles -->
 
