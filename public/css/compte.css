@@ -46,13 +46,6 @@ table#users tbody tr:hover {
     background-color: rgba(50,98,149,.3);
 }
 
-
-/* BASIC */
-
-html {
-    background-color: #56baed;
-}
-
 body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
