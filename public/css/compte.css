@@ -85,7 +85,6 @@ h2 {
 .wrapper {
     display: flex;
     align-items: center;
-    flex-direction: column;
     justify-content: top;
     width: 100%;
     min-height: 100%;
