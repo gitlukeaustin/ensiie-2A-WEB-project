@@ -21,10 +21,9 @@
 	<nav>	
 		<div class="nav-block">
 			<div>
-				<a href="/accueil"><span class='title'>Fight for ENSIIE</span></a>
+				<a href="/jeu"><span class='title'>Fight for ENSIIE</span></a>
 			</div>
 			<div>				
-			    <a href="/accueil">Accueil</a>
 				<a href="/jeu">Jeu</a>
 				<a href="/guide">Guide</a>
 				<a href="/leaderboard">Classement</a>

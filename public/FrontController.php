@@ -39,13 +39,6 @@ class FrontController
         }
     }
 
-    public function accueil(){
-        echo '<html>';
-        require 'navBar.php';
-        echo 'Accueil';
-        echo '</html>';
-    }
-
     public function jeu(){
         $headers = ['<script type="text/javascript" src="js/jeu.js?ver=9" ></script>',
     	'<link rel="stylesheet" href="css/jeu.css?ver=6">'];
