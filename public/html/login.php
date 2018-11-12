@@ -5,8 +5,11 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="../js/login.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<div class="animate-title">
+    <h1>FIGHT FOR ENSIIE</h1>
+</div>
 <div class="container">
+
     <div class="row">
 
         <div class="col-md-6 col-md-offset-3">
@@ -32,14 +35,10 @@
                         <div class="col-lg-12">
                             <form id="login-form" action="../login.php" method="post" role="form" style="display: block;">
                                 <div class="form-group">
-                                    <input type="text" name="loginUsername" id="loginUsername" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                                    <input type="text" name="loginUsername" id="loginUsername" tabindex="1" class="form-control" placeholder="Pseudo" value="" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="loginPassword" id="loginPassword" tabindex="2" class="form-control" placeholder="Password" required>
-                                </div>
-                                <div class="form-group text-center">
-                                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-                                    <label for="remember"> Case qui sert à rien mais tu peux quand même la cocher, tmtc</qu></label>
+                                    <input type="password" name="loginPassword" id="loginPassword" tabindex="2" class="form-control" placeholder="Mot de passe" required>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -48,33 +47,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="text-center">
-                                                <a href="#" tabindex="5" class="forgot-password">Mot de passe perdu? Dommage, c'est pas implémenté</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </form>
                             <form id="register-form" action="../login.php" method="post" role="form" style="display: none;">
                                 <div class="form-group">
-                                    <input type="text" name="registerUsername" id="registerUsername" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                                    <input type="text" name="registerUsername" id="registerUsername" tabindex="1" class="form-control" placeholder="Pseudo" value="" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="registerEmail" id="registerEmail" tabindex="1" class="form-control" placeholder="Email Address" value="" required>
+                                    <input type="email" name="registerEmail" id="registerEmail" tabindex="1" class="form-control" placeholder="Adresse e-mail" value="" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="registerPassword" id="registerPassword" tabindex="2" class="form-control" placeholder="Password" required>
+                                    <input type="password" name="registerPassword" id="registerPassword" tabindex="2" class="form-control" placeholder="Mot de passe" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="registerConfirmPassword" id="registerConfirmPassword" tabindex="2" class="form-control" placeholder="Confirm Password" required>
+                                    <input type="password" name="registerConfirmPassword" id="registerConfirmPassword" tabindex="2" class="form-control" placeholder="Confirmation du mot de passe" required>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Inscris-moi !">
                                         </div>
                                     </div>
                                 </div>
