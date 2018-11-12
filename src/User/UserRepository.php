@@ -91,9 +91,9 @@ class UserRepository
         $statement->bindParam(':login',$userArray['login']);
         $statement->bindParam(':password',$userArray['password']);
         $statement->bindParam(':email',$userArray['email']);
-        $statement->bindParam(':isadmin',$userArray['isAdmin']);
+        $statement->bindParam(':isadmin',$userArray['isadmin']);
         $statement->bindParam(':ects',$userArray['ects']);
-        $statement->bindParam(':isactif', $userArray['isActif']);
+        $statement->bindParam(':isactif', $userArray['isactif']);
         $statement->execute();
     }
 
