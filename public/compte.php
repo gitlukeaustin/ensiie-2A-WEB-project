@@ -58,7 +58,7 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 			<br />
 
 			<div class="fadeIn first">
-				<h3>Admin Information</h3>
+				<h3>Account information</h3>
 			</div>
 
 
