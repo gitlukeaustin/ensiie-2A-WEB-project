@@ -5,7 +5,6 @@ use User\UserRepository;
 $id = $_GET["id"];
 $login = $_GET["login"];
 $email = $_GET["email"];
-$ects = $_GET["ects"];
 
 #Repo
 $dbName = getenv('DB_NAME');
@@ -17,12 +16,11 @@ $userRepository = new UserRepository($connection);
 #Session
 session_start();
 
-if(isset($id) && isset($login) && isset($email) && isset($ects)){
+if(isset($id) && isset($login) && isset($email) ){
 
-	$userRepository->modifyUserById($id, $login, $email, $ects);
+	$userRepository->modifyUserById($id, $login, $email);
 	$_SESSION['login'] = $login;
 	$_SESSION['email'] = $email;
-	$_SESSION['ects'] = $ects;
 
 }
 

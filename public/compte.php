@@ -21,7 +21,7 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 
 
 <script type="text/javascript">
-	var columns =['login', 'email', 'ects'];
+	var columns =['login', 'email'];
 
 	function enableInputs(){
 		for (var i = columns.length - 1; i >= 0; i--) 
@@ -34,9 +34,8 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 		var id = document.getElementById("user_id").value;
 		var newLogin = document.getElementById("login").value;
 		var newEmail = document.getElementById("email").value;
-		var newEcts = document.getElementById("ects").value;
 
-		window.location.href="modify.php?login="+newLogin+"&email="+newEmail+"&ects="+newEcts+"&id="+id;
+		window.location.href="modify.php?login="+newLogin+"&email="+newEmail+"&id="+id;
 	}
 
 	function display_historique(){
@@ -45,51 +44,70 @@ if(isset($_SESSION['login']) && $_SESSION['login'] != null && isset($_SESSION['u
 
 </script>
 
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <!-- Tabs Titles -->
-		<?php echo $log??'' ?>
-        <!-- Icon -->
-        <br />
+<div class="flexrow">
+	<div class="wrapper_admin fadeInDown">
+		<div id="formContent">
+			<!-- Tabs Titles -->
 
-        <div class="fadeIn first">
-            <h3>Account Information</h3>
-        </div>
+			<!-- Icon -->
+			<br />
+
+			<div class="fadeIn first">
+				<h3>Admin Information</h3>
+			</div>
 
 
-        <?php if(isset($_SESSION['login']) && $_SESSION['login'] != null) { ?>
-        	    
-	            <b>Login : <input type="text" id="login" class="fadeIn second" style="width: 200px;" name="login" value="<? echo $user->getLogin() ?>" placeholder="username" disabled />
-	            <br />
-	            Email : <input type="text" id="email" class="fadeIn third" style="width: 200px;" name="email"  value="<? echo $user->getEmail() ?>" placeholder="email" disabled />
-	            <br />
-	            Ects : &nbsp; <input type="text" id="ects" class="fadeIn third" style="width: 200px;" name="ects"  value="<? echo $user->getEcts() ?>" placeholder="ects" disabled />
-	        	</b>
-	        	<br /><br />
-	        	<table>
-	        		<tr>
-	        			<td>
-	        				<form method="POST" action="/delete">  
-				        		<input type="hidden" name='user_id' value='<? echo $user->getId() ?>' >
-				        		<input type="submit" class="fadeIn fourth" value="delete" style="width: 100px" >
-				        	</form>
-	        			</td>
-	        			<td>
-	        				<form method="POST" action="/compte">
-				        		<input type="hidden" id='user_id' value='<?php echo $user->getId() ?>' >
-					        	<input type="button" id='modify' onclick="enableInputs()" class="fadeIn fourth" value="modify" style="width: 100px" >
-					        	<input type="button" id='validate' onclick="validateInputs()" class="fadeIn fourth" value="validate" style="width: 100px; display: none;" >
-					        	<input type="button" id='historique' class="fadeIn fourth" value="Historique" onclick="display_historique()" style="width: 100px;" >
-				        	</form>
-				        	
-	        			</td>
-	        		</tr>
-	        	</table>
+			<?php if(isset($_SESSION['login']) && $_SESSION['login'] != null) { ?>
+					
+					<b>Login : <input type="text" id="login" class="fadeIn second" style="width: 200px;" name="login" value="<? echo $user->getLogin() ?>" placeholder="username" disabled />
+					<br />
+					Email : <input type="text" id="email" class="fadeIn third" style="width: 200px;" name="email"  value="<? echo $user->getEmail() ?>" placeholder="email" disabled />
+					<br /><br />
+					<div class="flexrow">
+						<form method="POST" action="delete.php">  
+							<input type="hidden" name='user_id' value='<? echo $user->getId() ?>' >
+							<input type="submit" class="fadeIn fourth" value="delete" style="width: 100px" >
+						</form>
+						<form method="POST" class="flexrow" action="compte.php">
+							<input type="hidden" id='user_id' value='<?php echo $user->getId() ?>' >
+							<input type="button" id='modify' onclick="enableInputs()" class="fadeIn fourth" value="modify" style="width: 100px" >
+							<input type="button" id='validate' onclick="validateInputs()" class="fadeIn fourth" value="validate" style="width: 100px; display: none;" >
+							<input type="button" id='historique' class="fadeIn fourth" value="Historique" onclick="display_historique()" style="width: 100px;" >
+						</form>
+					</div>
 
-        <?php } ?>
-
-    
-
-    </div>
+			<?php } ?>
+		</div>
+	</div>
+	<?php if($user->isAdmin()):?>		
+	
+		<div class="wrapper">
+			<table id="users">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Username</th>
+						<th>Email</th>
+						<th>ECTS</th>
+						<th>Admin</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						$usersList = $userRepository->getAllUsersListActivated();
+						foreach ($usersList as $key => $user) {
+							$id = $user->getId();
+							$login = $user->getLogin();
+							$email = $user->getEmail();
+							$ects = $user->getEcts();
+							$isAdmin = $user->isAdmin();
+							echo "<tr><td>$id</td><td>$login</td><td>$email</td><td>$ects</td><td>$isAdmin</td><td><a href=\"compte/delete/$id\">Supprimer</a></td></tr>";
+						}
+					?>
+				</tbody>
+			</table>
+		</div>
+	<?php endif; ?>
 </div>
 

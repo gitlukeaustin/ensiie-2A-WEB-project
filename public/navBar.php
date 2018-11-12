@@ -29,12 +29,8 @@
 				<a href="/leaderboard">Classement</a>
 				<?php
 					if(isset($_SESSION["login"]) && isset($_SESSION["uniqid"])) {
-						if(($_SESSION['user']['isadmin']??false)) {
-							echo '<a href="/admin">'.$_SESSION["login"].'</a>';
-						} 
-						else {
 					 		echo '<a href="/compte">'.$_SESSION["login"].'</a>';
-					 	}
+					 	
 					}
 				?>
                 <?php if(isset($_SESSION["login"]) && isset($_SESSION["uniqid"])) { ?>

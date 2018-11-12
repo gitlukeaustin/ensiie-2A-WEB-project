@@ -119,18 +119,32 @@ class UserRepository
         return $rows;
     }
 
-    public function modifyUserById($id, $login, $email, $ects){
-        $statement = $this->connection->prepare('UPDATE "User" SET login = :login , email = :email, ects = :ects WHERE id = :id');
+    public function modifyUserById($id, $login, $email){
+        $statement = $this->connection->prepare('UPDATE "User" SET login = :login , email = :email WHERE id = :id');
         $statement->bindParam(':id', $id);
         $statement->bindParam(':login', $login);
         $statement->bindParam(':email', $email);
-        $statement->bindParam(':ects', $ects);
-
         $statement->execute();
     }
 
     public function getAllUsersList(){
         $statement = $this->connection->prepare('SELECT * FROM "User"');
+        $statement->execute();
+
+        $usersList = array();
+
+        foreach ($statement->fetchAll() as $user){
+            $newUser = new User();
+            $user = $this->hydrator->hydrate($user, clone $newUser);
+
+            array_push($usersList, $user);
+        }
+
+        return $usersList;
+    } 
+
+    public function getAllUsersListActivated(){
+        $statement = $this->connection->prepare('SELECT * FROM "User" where isActif is true');
         $statement->execute();
 
         $usersList = array();

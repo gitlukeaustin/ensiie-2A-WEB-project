@@ -53,14 +53,6 @@ class FrontController
         readfile("html/guide.html");
     }
 
-    public function admin(){
-        if(($this->url[2]??' ') == 'delete'){
-            $userRepository = new \User\UserRepository($this->connection);
-            $userRepository->deleteUserById(($this->url[3]??0));
-        } 
-        require 'admin.php';
-    }
-
     public function historique(){
         $headers = ['<link rel="stylesheet" href="css/histo.css"/>'];
         require 'historique.php';
@@ -75,7 +67,10 @@ class FrontController
         $log = '';
         if(($this->url[2]??' ') == 'successModify') $log = "<b> Your informations are successufly modified ! </b>";
         if(($this->url[2]??' ') == 'successDelete') $log = "<b> Your account has been deleted !</b>";
-        
+        if(($this->url[2]??' ') == 'delete'){
+            $userRepository = new \User\UserRepository($this->connection);
+            $userRepository->deleteUserById(($this->url[3]??0));
+        } 
         $headers = ['<link href="../css/compte.css" rel="stylesheet"></link>'];
         echo "<html>";
         include "navBar.php";
