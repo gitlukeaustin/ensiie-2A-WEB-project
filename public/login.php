@@ -65,9 +65,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 'login' => $login ?? null,
                 'password' => $hashed_password ?? null,
                 'email' => $email ?? null,
-                'isAdmin' => 0,
+                'isadmin' => 0,
                 'ects' => 0,
-                'isActif' => 1,
+                'isactif' => 1,
             ],
             'errors' => [],
         ];
