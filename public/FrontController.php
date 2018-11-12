@@ -60,6 +60,14 @@ class FrontController
         readfile("html/guide.html");
     }
 
+    public function admin(){
+        if(($this->url[2]??' ') == 'delete'){
+            $userRepository = new \User\UserRepository($this->connection);
+            $userRepository->deleteUserById(($this->url[3]??0));
+        } 
+        require 'admin.php';
+    }
+
     public function historique(){
         $headers = ['<link rel="stylesheet" href="css/histo.css"/>'];
         require 'historique.php';

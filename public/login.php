@@ -34,6 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         if ($login && $password) {
             $user = $userRepository->findOneByLogin($login);
+         
             if (!$user) {
                 $view['errors'] = 'Utilisateur inexistant.';
             } else {
@@ -86,17 +87,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     $view['errors'] = 'Le mot de passe de confirmation entré n\'est pas le même.';
                 }
             }
+}
+} else {
+        /* Validation dynamique en JS, ce cas ne devrait pas arriver */
+        $view['errors'] = 'Veuillez remplir tous les champs.';
     }
-    } else {
-            /* Validation dynamique en JS, ce cas ne devrait pas arriver */
-            $view['errors'] = 'Veuillez remplir tous les champs.';
-        }
 
-            if(count($view['errors']) === 0){
-                unset($_SESSION['errors']);
-                header('Location: http://localhost:8080/jeu');
-            }
-            else {
-                $_SESSION['errors'] = $view['errors'];
-                header('Location: http://localhost:8080/login');
-            }
+if(count($view['errors']) === 0){
+    unset($_SESSION['errors']);
+    header('Location: http://localhost:8080/jeu');
+}
+else {
+    $_SESSION['errors'] = $view['errors'];
+    header('Location: http://localhost:8080/login');
+}
+        

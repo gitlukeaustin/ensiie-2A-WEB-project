@@ -9,7 +9,7 @@ $connection = new PDO("pgsql:host=postgres user=$dbUser dbname=$dbName password=
 $userRepository = new UserRepository($connection);
 $userHydrator = new \User\UserHydrator();
 @ob_start();
-session_start();
+if (session_status() == PHP_SESSION_NONE) session_start();
 require "navBar.php";
 
 
@@ -116,9 +116,9 @@ if(isset($_GET['status'])){
 						<th>Id</th>
 						<th>Username</th>
 						<th>Email</th>
-						<th>IsAdmin</th>
 						<th>ECTS</th>
-						<th>IsActif</th>
+						<th>Actif</th>
+						<th>Admin</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -132,7 +132,7 @@ if(isset($_GET['status'])){
 							$ects = $user->getEcts();
 							$isActif = $user->isActif();
 							$isAdmin = $user->isAdmin();
-							echo "<tr><td>$id</td><td>$login</td><td>$email</td><td>$ects</td><td>$isActif</td><td>$isAdmin</td><td><dd>btnAction1</dd><dd>btnAction2</dd></td></tr>";
+							echo "<tr><td>$id</td><td>$login</td><td>$email</td><td>$ects</td><td>$isActif</td><td>$isAdmin</td><td><a href=\"admin/delete/$id\">Supprimer</a></td></tr>";
 						}
 					?>
 				</tbody>

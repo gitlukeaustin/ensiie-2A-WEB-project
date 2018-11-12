@@ -30,11 +30,11 @@ class UserHydrator
         }
 
         if ($object->isAdmin() !== null) {
-            $data['isAdmin'] = $object->isAdmin();
+            $data['isadmin'] = $object->isAdmin();
         }
 
         if ($object->isActif() !== null) {
-            $data['isActif'] = $object->isActif();
+            $data['isactif'] = $object->isActif();
         }
         return $data;
     }
@@ -47,8 +47,8 @@ class UserHydrator
             ->setLogin($data['login'] ?? null)
             ->setPassword($data['password'] ?? null)
             ->setEcts($data['ects'] ?? null)
-            ->setIsAdmin($data['isAdmin'] ?? null)
-            ->setIsActif($data['isActif'] ?? null);
+            ->setIsAdmin($data['isadmin'] ?? null)
+            ->setIsActif($data['isactif'] ?? null);
     }
 
 }

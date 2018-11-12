@@ -25,6 +25,7 @@
 				<a href="/accueil"><span class='title'>Fight for ENSIIE</span></a>
 			</div>
 			<div>
+				<?php if(($_SESSION['user']['isadmin']??false)) echo '<a href="/admin">Admin</a>'; ?>
 			    <a href="/accueil">Accueil</a>
 				<a href="/jeu">Jeu</a>
 				<a href="/guide">Guide</a>
