@@ -35,10 +35,10 @@
                         <div class="col-lg-12">
                             <form id="login-form" action="../login.php" method="post" role="form" style="display: block;">
                                 <div class="form-group">
-                                    <input type="text" name="loginUsername" id="loginUsername" tabindex="1" class="form-control" placeholder="Pseudo" value="" required>
+                                    <input type="text" name="loginUsername" id="loginUsername" tabindex="1" class="form-control" placeholder="Pseudo" value="" pattern=".{3,}" title="3 caractères minimum" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="loginPassword" id="loginPassword" tabindex="2" class="form-control" placeholder="Mot de passe" required>
+                                    <input type="password" name="loginPassword" id="loginPassword" tabindex="2" class="form-control" placeholder="Mot de passe" pattern=".{4,}" title="4 caractères minimum"required>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -50,16 +50,16 @@
                             </form>
                             <form id="register-form" action="../login.php" method="post" role="form" style="display: none;">
                                 <div class="form-group">
-                                    <input type="text" name="registerUsername" id="registerUsername" tabindex="1" class="form-control" placeholder="Pseudo" value="" required>
+                                    <input type="text" name="registerUsername" id="registerUsername" tabindex="1" class="form-control" placeholder="Pseudo" value="" pattern=".{3,}" title="3 caractères minimum" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="registerEmail" id="registerEmail" tabindex="1" class="form-control" placeholder="Adresse e-mail" value="" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="registerPassword" id="registerPassword" tabindex="2" class="form-control" placeholder="Mot de passe" required>
+                                    <input type="password" name="registerPassword" id="registerPassword" tabindex="2" class="form-control" placeholder="Mot de passe" pattern=".{4,}" title="4 caractères minimum" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="registerConfirmPassword" id="registerConfirmPassword" tabindex="2" class="form-control" placeholder="Confirmation du mot de passe" required>
+                                    <input type="password" name="registerConfirmPassword" id="registerConfirmPassword" tabindex="2" class="form-control" placeholder="Confirmation du mot de passe" pattern=".{4,}" title="4 caractères minimum" required>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
