@@ -38,13 +38,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if (!$user) {
                 $view['errors'] = 'Utilisateur inexistant.';
             } else {
-
-                if (password_verify($password, $user->getPassword())) {
-                    $_SESSION['uniqid'] = uniqid();
-                    $_SESSION['login'] = $login;
-                    $_SESSION['user'] = $userHydrator->extract($user);
-                } else {
-                    $view['errors'] = 'Le mot de passe entré n\'est pas le bon.';
+                if($user->isActif() == 0){
+                    $view['errors'] = 'Compte désactivé.';
+                }
+                else{
+                    if (password_verify($password, $user->getPassword())) {
+                        $_SESSION['uniqid'] = uniqid();
+                        $_SESSION['login'] = $login;
+                        $_SESSION['user'] = $userHydrator->extract($user);
+                    } else {
+                        $view['errors'] = 'Le mot de passe entré n\'est pas le bon.';
+                    }
                 }
             }
         } else {
