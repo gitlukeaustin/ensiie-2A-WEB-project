@@ -4,8 +4,12 @@
     },
     "autoload": {
         "psr-4": {
-            "User\\": "src/User/"
-        }
+            "User\\": "src/User/",
+            "Unit\\": "src/Unit",
+            "Category\\": "src/Category/",
+            "Game\\": "src/Game/"
+        },
+        "files": ["public/FrontController.php","public/Simulator.php","public/GameController.php"]
     },
     "autoload-dev": {
         "psr-4": {

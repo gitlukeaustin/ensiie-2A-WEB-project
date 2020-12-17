@@ -1,0 +1,77 @@
+<div class="container">
+  <div id="app">
+          
+    <div id="game">
+    <div id="plateau">
+      <div class="chateau icon" id="chateau_adversaire">
+        <img class="flag faded" src="image/flag.gif"/>
+        <img :src="img.ecole2" />
+      </div>
+      <div id="adv_cards">
+        
+        <div class="unit" v-for="placed in adv">
+            <span class="hit_adv faded">+25</span>
+            <img class="fireball faded" src="image/fireball.gif" alt="X"/>
+          <img :src="'image/'+placed.name +'.png' | lowercase" :alt="placed.name"/>
+        </div>
+      </div>
+      <div id="placed_cards">
+          
+        <div class="unit" v-for="placed in selected">
+            <span class="hit faded">+25</span>
+            <img class="fireball faded" src="image/fireball.gif" alt="X"/>
+          <img :src="'image/'+placed.name +'.png' | lowercase" :alt="placed.name"/>
+        </div>
+      </div>
+      <div class="chateau icon" id="chateau_joueur">
+        <img class="flag faded" src="image/flag.gif"/>
+        <img :src="img.ecole1" />
+      </div>
+      <div id="start">
+        <button v-on:click="send">
+        Prêt
+      </button>
+        <div id="coins">
+          {{coins}}
+        </div>
+      </div>
+      <div id="hand">
+        <div class="card" v-on:click="selectCard(cat)" :text="cat.description" v-for="cat in categories">
+          
+          <div class="top">
+            <div class="cost">
+              {{cat.cost}}
+            </div>
+            <div class="defence">
+              {{cat.defence}}
+            </div>
+          </div>
+          <div class="middle icon">
+            <img :src="'image/'+cat.type +'.png' | lowercase" :alt="cat.type"/>
+          </div>
+
+          <div class="bottom">
+            <div class="chance">
+              {{cat.chance | trim}}
+            </div>
+            <div class="attack">
+              {{cat.attack}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div id="log" v-on:click="cancelTimeout">
+      <p v-html="log">
+
+      </p>
+    </div>
+    </div>
+  </div>
+  <footer>
+    <form action="/jeu" method="POST" style="display:inline;">
+      <button name="rejouer" id="replay">Rejouer</button>
+    </form>
+  </footer>
+</div>

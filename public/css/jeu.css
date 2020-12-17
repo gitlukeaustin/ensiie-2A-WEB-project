@@ -1,0 +1,251 @@
+body {
+  background: #20262E;
+}
+
+#app {
+  margin:10px;
+  background: #fff;
+  padding: 5px;
+  transition: all 0.2s;
+  display: flex;
+  font-size:14px;
+  max-width:1000px;
+  height:443px; 
+}
+
+#game {
+  display:flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  width:100%;
+}
+
+#plateau {
+  /*background: lightgreen;*/
+
+
+  background-image: url("../image/carte_transparent.png");
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+  min-width: 347px;
+}
+
+#log {
+  background: #000;
+  padding: 3px;
+  padding-bottom: 20px;
+  flex-grow: 1;
+  color: #fff;
+  overflow-x: auto;
+  width:290px;
+  font-family: 'VT323', monospace;
+}
+
+#log p {
+  padding-bottom:50px;
+}
+
+#placed_cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  min-height: 40px;
+  flex-grow:5;
+  justify-content: space-evenly;
+  align-items: first baseline;
+}
+
+#adv_cards{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  min-height: 40px;
+  flex-grow:5;
+  justify-content: space-evenly;
+  align-items: first baseline;
+}
+
+.card {
+  background: white;
+  border: solid;
+  border-width: 2px;
+  border-radius: 3px;
+  width: 44px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self:center;
+  -webkit-transition: transform 0.5s; /* Safari */
+  transition: transform 0.25s;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
+}
+
+.float {
+  transition: transform 0.25s;
+  transform: translate(0,-8px);
+  -webkit-transform: translate(0,-8px); /** Chrome & Safari **/
+}
+
+.fade {
+  transition: opacity 0.8s;
+  -webkit-transform: opacity 0.5s; /** Chrome & Safari **/
+  opacity: 0;
+}
+
+.floatdown {
+  transition: transform 0.25s;
+  transform: translate(0,+8px);
+  -webkit-transform: translate(0,+8px); /** Chrome & Safari **/
+}
+
+.fadedown {
+  transition: opacity 0.5s;
+  -webkit-transform: opacity 0.5s; /** Chrome & Safari **/
+  opacity: 0;
+}
+
+.fadeSlow {
+  transition: opacity 1.2s;
+  -webkit-transform: opacity 0.5s; /** Chrome & Safari **/
+  opacity: 0;
+}
+
+.fadeIn {
+  transition: opacity 0.5s;
+  -webkit-transform: opacity 0.5s; /** Chrome & Safari **/
+  opacity: 1;
+}
+
+.faded{
+  opacity:0;
+}
+
+.card > .icon img{
+  width:100%;
+  height:100%;
+}
+
+.card:hover {
+   transform: translate(0,-3px);
+    -webkit-transform: translate(0,-3px); /** Chrome & Safari **/
+}
+
+.card div{
+  display:flex;
+  height:100%;
+}
+
+.card div div{
+  /*font-family: 'Eater', cursive;*/
+  font-family: 'Frijole', cursive;
+}
+
+.card .top {
+  justify-content: space-between;
+}
+
+.card .middle {
+  justify-content: space-around;
+}
+
+.card .bottom {
+  justify-content: space-between;
+}
+
+.chateau {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 89;
+  z-index:99;
+}
+
+.attack {
+  color: red;
+}
+
+.defence {
+  color: green;
+}
+
+.cost {
+  color: orange;
+}
+
+.chance {
+  color: blue;
+}
+
+.chateau img {
+  max-height: 100px;
+}
+
+.unit img {
+  max-height: 30px;
+}
+
+
+#start {
+  padding: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#hand {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 1px;
+  margin: 2px;
+  border-style: solid;
+  border-color: blue;
+  border-width: 3px;
+  border-radius: 3px;
+  overflow-x: auto;
+  height:95px;
+}
+
+#hit{
+  font-family: 'Frijole', cursive;
+  position:absolute;
+  z-index:99;
+  font-size: 14px;
+  color:red;
+}
+
+#hit_adv{
+  font-family: 'Frijole', cursive;
+  position:absolute;
+  z-index:99;
+  font-size: 14px;
+  color:red;
+}
+
+
+.hit{
+  font-family: 'Frijole', cursive;
+  position:absolute;
+  z-index:99;
+  font-size: 20px;
+  color:red;
+}
+
+.hit_adv{
+  font-family: 'Frijole', cursive;
+  position:absolute;
+  z-index:99;
+  font-size: 20px;
+  color:red;
+}
+
+.fireball{
+  position:absolute;
+  size: 16px;
+}
+
+.flag{
+  position:absolute;
+  size: 19px;
+}

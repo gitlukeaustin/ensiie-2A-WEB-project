@@ -11,17 +11,32 @@ class User
     /**
      * @var string
      */
-    private $firstname;
+    private $login;
 
     /**
      * @var string
      */
-    private $lastname;
+    private $password;
 
     /**
-     * @var \DateTimeInterface
+     * @var string
      */
-    private $birthday;
+    private $email;
+
+    /**
+     * @var int
+     */
+    private $ects;
+
+    /**
+     * @var boolean
+     */
+    private $isAdmin;
+
+    /**
+     * @var boolean
+     */
+    private $isActif;
 
     /**
      * @return int
@@ -44,71 +59,108 @@ class User
     /**
      * @return string
      */
-    public function getFirstname()
+    public function getLogin()
     {
-        return $this->firstname;
+        return $this->login;
     }
 
     /**
-     * @param string $firstname
+     * @param string $login
      * @return User
      */
-    public function setFirstname($firstname)
+    public function setLogin($login)
     {
-        $this->firstname = $firstname;
+        $this->login = $login;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getLastname()
+    public function getPassword()
     {
-        return $this->lastname;
+        return $this->password;
     }
 
     /**
-     * @param string $lastname
+     * @param string $password
      * @return User
      */
-    public function setLastname($lastname)
+    public function setPassword($password)
     {
-        $this->lastname = $lastname;
+        $this->password = $password;
         return $this;
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return string
      */
-    public function getBirthday(): \DateTimeInterface
+    public function getEmail()
     {
-        return $this->birthday;
+        return $this->email;
     }
 
     /**
-     * @param \DateTimeInterface $birthday
+     * @param string $email
      * @return User
      */
-    public function setBirthday(\DateTimeInterface $birthday)
+    public function setEmail($email)
     {
-        $this->birthday = $birthday;
+        $this->email = $email;
         return $this;
     }
-
 
     /**
      * @return int
-     * @throws \OutOfRangeException
      */
-    public function getAge(): int
+    public function getEcts()
     {
-        $now = new \DateTime();
+        return $this->ects;
+    }
 
-        if ($now < $this->getBirthday()) {
-            throw new \OutOfRangeException('Birthday in the future');
-        }
+    /**
+     * @param int $ects
+     * @return User
+     */
+    public function setEcts($ects)
+    {
+        $this->ects = $ects;
+        return $this;
+    }
 
-        return $now->diff($this->getBirthday())->y;
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param bool $isAdmin
+     * @return User
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActif()
+    {
+        return $this->isActif;
+    }
+
+    /**
+     * @param bool $isActif
+     * @return User
+     */
+    public function setIsActif($isActif)
+    {
+        $this->isActif = $isActif;
+        return $this;
     }
 }
-

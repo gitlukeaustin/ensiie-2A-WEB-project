@@ -1,0 +1,47 @@
+.win{
+	background-color: rgba(32,148,74,0.5);
+}
+.win:hover{
+	background-color: rgba(32,148,74,0.8);
+}
+
+.loose{
+	background-color: rgba(239,10,0,0.5);
+}
+.loose:hover{
+	background-color: rgba(239,10,0,0.7);
+}
+
+.wrapper {
+	line-height: 1.5em;
+	margin: 0 auto;
+	padding: 2em 0 3em;
+	width: 90%;
+	max-width: 2000px;
+	overflow: hidden;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+}
+
+th {
+    background-color: #326295;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+}
+
+td, th {
+    padding: 1em 1.5em;
+    text-align: left;
+}
+
+tbody th {
+	background-color: #2ea879;
+}
+tbody tr {
+	border-bottom: 1px solid white;
+}
